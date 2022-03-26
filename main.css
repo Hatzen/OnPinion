@@ -1,0 +1,15 @@
+/*!**********************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/styles/app.css ***!
+  \**********************************************************************/
+
+body {
+    background-color: #fefefe;
+    font-family: 'Ink Free';
+}
+
+.color-primary {
+    color: '#004A7F'
+}
+
+
+/*# sourceMappingURL=main.css.map*/

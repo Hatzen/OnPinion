@@ -1,0 +1,1 @@
+{"version":3,"file":"main.css","mappings":";;;;AACA;IACI,yBAAyB;IACzB,uBAAuB;AAC3B;;AAEA;IACI;AACJ","sources":["webpack://onpinion/./src/styles/app.css"],"sourcesContent":["\nbody {\n    background-color: #fefefe;\n    font-family: 'Ink Free';\n}\n\n.color-primary {\n    color: '#004A7F'\n}\n"],"names":[],"sourceRoot":""}

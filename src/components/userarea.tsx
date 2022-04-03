@@ -11,7 +11,7 @@ interface AppState {
     count: number
 }
 
-class App extends React.Component<any, AppState> {
+class UserArea extends React.Component<any, AppState> {
 
     private firebaseService: FirebaseService
     
@@ -114,4 +114,4 @@ class App extends React.Component<any, AppState> {
     }
 }
 
-export default App
+export default UserArea

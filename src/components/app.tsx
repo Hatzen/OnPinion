@@ -5,7 +5,12 @@ import { StoreProps } from '../stores/storeHelper'
 import StartPage from './startpage'
 import '../styles/app.css'
 import AdminArea from './adminarea'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom'
+
+export const withNavigation = (Component: any) => {
+    // eslint-disable-next-line react/display-name
+    return (props: any) => <Component {...props} navigate={useNavigate()} />
+}
 
 interface AppState {
     count: number
@@ -24,17 +29,16 @@ class App extends React.Component<any, AppState> {
         const stores: StoreProps = {
             uiStore: UiStore
         }
+        // <Route path="/manage" element={withNavigation(AdminArea)} />
         return (
             <Provider {...stores}>
-                <BrowserRouter>
-                    <Switch>
-                        <Route path="/" component={StartPage} />
-                        <Route path="/manage" component={AdminArea} />
-                    </Switch>
-                </BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<StartPage navigate={useNavigate()} />} />
+                    
+                </Routes>
             </Provider>
         )
     }
 }
 
-export default App
+export default withNavigation(App)

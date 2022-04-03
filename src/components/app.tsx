@@ -5,7 +5,7 @@ import { StoreProps } from '../stores/storeHelper'
 import StartPage from './startpage'
 import '../styles/app.css'
 import AdminArea from './adminarea'
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 
 export const withNavigation = (Component: any) => {
     // eslint-disable-next-line react/display-name
@@ -16,29 +16,18 @@ interface AppState {
     count: number
 }
 
-class App extends React.Component<any, AppState> {
-
-    constructor(props: any) {
-        super(props)
-        this.state ={
-            count: 77,
-        }
+export const App = (props: AppState): JSX.Element => {
+    const stores: StoreProps = {
+        uiStore: UiStore
     }
-
-    render(): JSX.Element {
-        const stores: StoreProps = {
-            uiStore: UiStore
-        }
-        // <Route path="/manage" element={withNavigation(AdminArea)} />
-        return (
-            <Provider {...stores}>
-                <Routes>
-                    <Route path="/" element={<StartPage navigate={useNavigate()} />} />
-                    
-                </Routes>
-            </Provider>
-        )
-    }
+    return (
+        <Provider {...stores}>
+            <Routes>
+                <Route path="/" element={<StartPage navigate={useNavigate()} />} />
+                <Route path="/manage" element={<AdminArea navigate={useNavigate()}></AdminArea>} />
+            </Routes>
+        </Provider>
+    )
 }
 
 export default withNavigation(App)

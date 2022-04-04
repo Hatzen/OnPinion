@@ -30,6 +30,11 @@ module.exports = {
       },
     ]
   },
+  // Catch-All: https://stackoverflow.com/a/34125010/8524651
+  devServer: {
+    port: 3000,
+    historyApiFallback: true
+  },
   devtool: prod ? undefined : 'source-map',
   plugins: [
     new HtmlWebpackPlugin({

@@ -1,11 +1,8 @@
 import React from 'react'
 import { Button, Input } from '@mui/material'
+import { NavigationProps } from './app'
 
-interface Props {
-    navigate: (url: string) => void
-}
-
-export const StartPage = (props: Props): JSX.Element => {
+export const StartPage = (props: NavigationProps): JSX.Element => {
     return (
         <div style={{ position: 'absolute', top:0, left:0, bottom: 0, right:0, background: 'url(logo.png) no-repeat', backgroundPosition: 'center', backgroundSize: 'contain' }}>
             <Button style={{float: 'right'}} variant="text" onClick={() => props.navigate('/manage')}>

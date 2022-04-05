@@ -33,7 +33,10 @@ module.exports = {
   // Catch-All: https://stackoverflow.com/a/34125010/8524651
   devServer: {
     port: 3000,
-    historyApiFallback: true
+    // https://github.com/webpack/webpack-dev-server/issues/216
+    historyApiFallback: { index: '/' },
+    // https://stackoverflow.com/questions/69901768/webpack-dev-server-enables-features-then-disconnects-twice-when-using-host-op
+    allowedHosts: ['all']
   },
   devtool: prod ? undefined : 'source-map',
   plugins: [

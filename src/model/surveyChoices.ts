@@ -1,0 +1,6 @@
+
+export enum SurveyChoices {
+    SINGLESELECT= 'SINGLESELECT',
+    MULTISELECT= 'MULTISELECT',
+    PRIORITY = 'PRIORITY'
+}

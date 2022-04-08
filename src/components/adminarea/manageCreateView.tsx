@@ -1,8 +1,15 @@
 import * as React from 'react'
-import { Button, Divider, List, ListItem, ListItemText, Skeleton, Snackbar } from '@mui/material'
+import { Button, List, ListItem, ListItemText, Skeleton, Snackbar } from '@mui/material'
+import CreateSurveyEntry from './manageCreateView/createSurveyEntry'
+import { SurveyEntry } from '../../model/surveyEntry'
 
 export const ManageCreateView = (): JSX.Element => {
     const [open, setOpen] = React.useState(false)
+    const [surveyEntries, setSurveyEntries] = React.useState(new Array<SurveyEntry>())
+
+    const addSurveyEntry = (surveyEntry: SurveyEntry): void => {
+        setSurveyEntries(surveyEntries.concat(surveyEntry))
+    }
 
     const handleClick = (): void => {
         setOpen(true)
@@ -23,23 +30,18 @@ export const ManageCreateView = (): JSX.Element => {
             </Button>
         </React.Fragment>
     )
+
     return (
         <div>
-            <Skeleton sx={{ height: 190 }} animation='wave' variant='rectangular' />
+            [<Skeleton sx={{ height: 190 }} animation='wave' variant='rectangular' />]
             <List component='nav' aria-label='mailbox folders'>
-                <ListItem button>
-                    <ListItemText primary='Inbox' />
-                </ListItem>
-                <Divider />
-                <ListItem button divider>
-                    <ListItemText primary='Drafts' />
-                </ListItem>
-                <ListItem button>
-                    <ListItemText primary='Trash' />
-                </ListItem>
-                <Divider light />
-                <ListItem button>
-                    <ListItemText primary='Spam' />
+                {
+                    surveyEntries.map(entry => {
+                        return (<CreateSurveyEntry key={'test'} />)
+                    })
+                }
+                <ListItem divider onClick={(event) => addSurveyEntry(new SurveyEntry())}>
+                    <ListItemText primary="+ Frage hinzufügen" />
                 </ListItem>
             </List>
             

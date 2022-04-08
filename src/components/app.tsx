@@ -9,6 +9,7 @@ import { NavigateFunction, Route, Routes, useNavigate } from 'react-router-dom'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserCheck, faAdd } from '@fortawesome/free-solid-svg-icons'
 import UserArea from './userarea'
+import ManageCreateView from './adminarea/manageCreateView'
 
 // TODO: Split up file: Router, Stores, Icons, Helper
 
@@ -34,7 +35,7 @@ export const App = (): JSX.Element => {
                 <Route path="/" element={<StartPage navigate={useNavigate()} />} />
                 [Admin]
                 <Route path="/manage" element={<AdminArea navigate={useNavigate()}></AdminArea>} />
-                <Route path="/manage/create" element={<AdminArea navigate={useNavigate()}></AdminArea>} />
+                <Route path="/manage/create" element={<ManageCreateView></ManageCreateView>} />
                 [User]
                 <Route path="/result/:surveyId" element={<AdminArea navigate={useNavigate()}></AdminArea>} />
                 <Route path="/participate/:surveyId" element={<UserArea navigate={useNavigate()}></UserArea>} />

@@ -1,21 +1,34 @@
-import { FormControl, Input, InputLabel, ListItem, MenuItem, Select } from '@mui/material'
+import { Button, FormControl, Input, InputLabel, ListItem, MenuItem, Select } from '@mui/material'
 import * as React from 'react'
 import { GraphType } from '../../../model/graphType'
 import { SurveyChoices } from '../../../model/surveyChoices'
 import { SurveyEntry } from '../../../model/surveyEntry'
 
-export const CreateSurveyEntry = (): JSX.Element => {
-    const surveyEntry = new SurveyEntry()
+interface CreateSurveyEntryProps {
+    surveyEntry: SurveyEntry
+    deleteEntryAction: (surveyEntry: SurveyEntry) => void
+}
+
+export const CreateSurveyEntry = (props: CreateSurveyEntryProps): JSX.Element => {
+    const surveyEntry = props.surveyEntry
     
     return (
         <div>
-            <ListItem divider>
-                <FormControl fullWidth>
-                    <InputLabel  id="question">Überschrift:</InputLabel>
-                    <Input
-                        id="question-input"
+            <ListItem style={{display: 'block', padding: '20px'}} divider>
+                <Button
+                    onClick={() => {
+                        console.log('Test')
+                        props.deleteEntryAction(surveyEntry)}
+                    }
+                    style={{float: 'right'}}
+                    variant='text'>X</Button>
+                <FormControl  style={{marginBottom: '20px'}} fullWidth>
+                    <InputLabel id="question">Überschrift:</InputLabel>
+                    <Input id="question-input"
                         onChange={(event) => surveyEntry.question = event.target.value} />
                     
+                </FormControl>
+                <FormControl style={{marginBottom: '20px'}} fullWidth>
                     <InputLabel id="graph-type">Umfragetyp</InputLabel>
                     <Select
                         labelId="graph-type"
@@ -29,17 +42,18 @@ export const CreateSurveyEntry = (): JSX.Element => {
                         <MenuItem disabled>Kalender</MenuItem>
                         <MenuItem disabled>Multimedia</MenuItem>
                     </Select>
+                </FormControl>
 
-                    <InputLabel>Auswahlmöglichkeiten</InputLabel>
+                <FormControl style={{marginBottom: '20px'}} fullWidth>
+                    <InputLabel id="choice-type">Auswahlmöglichkeiten</InputLabel>
                     <Select
+                        labelId='choice-type'
                         label="Auswahltyp"
-                        value={SurveyChoices.SINGLESELECT}
                         onChange={(event) => surveyEntry.surveyChoices = event.target.value as SurveyChoices}>
                         <MenuItem value={SurveyChoices.MULTISELECT}>Mehrfach</MenuItem>
                         <MenuItem value={SurveyChoices.SINGLESELECT}>Eine Option</MenuItem>
                         <MenuItem value={SurveyChoices.PRIORITY}>Priorisieren</MenuItem>
                     </Select>
-
                 </FormControl>
             </ListItem>
         </div>

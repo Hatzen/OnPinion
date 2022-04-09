@@ -1,4 +1,6 @@
-export class SurveyEntry {
+import { SurveyEntry } from './surveyEntry'
+
+export class Survey {
     id?: string
     name!: string
     createdAt!: number
@@ -7,4 +9,9 @@ export class SurveyEntry {
     canSeeResult = false
     deadline = -1
     isClosed = false
+    surveyEntries: SurveyEntry[] = []
+    
+    constructor() {
+        this.id = 'dummy2-' + new Date().getTime()
+    }
 }

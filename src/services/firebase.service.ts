@@ -1,8 +1,10 @@
+import { Survey } from './../model/survey';
+import { CreateSurveyEntry } from './../components/adminarea/manageCreateView/createSurveyEntry';
 // import firebaseui from 'firebaseui'
 // https://firebase.google.com/docs/web/setup?authuser=1&hl=de
 import { FirebaseApp, initializeApp } from 'firebase/app'
 import { getAnalytics, Analytics } from 'firebase/analytics'
-import { Database, DatabaseReference, getDatabase, onValue, ref, set } from 'firebase/database'
+import { Database, DatabaseReference, getDatabase, onValue, push, ref, set } from 'firebase/database'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -11,6 +13,7 @@ export class FirebaseService {
     private app!: FirebaseApp
     private analytics!: Analytics
     private database!: Database
+    private readonly CUSTOMER = 'fourenergy'
     
     
     initFirebase (): void {
@@ -47,8 +50,13 @@ export class FirebaseService {
         set(this.ref, Math.random()*12 + count)
     }
 
+    addSurvey(survey: Survey): void {
+        const myRef = ref(this.database, this.CUSTOMER + '/surveys/')
+        push(myRef, survey)
+    }
+
     get ref(): DatabaseReference {
-        return ref(this.database, 'fourenergy/surveys/first/surveyentrys/homeoffice/votes')
+        return ref(this.database, this.CUSTOMER + '/surveys/first/surveyentrys/homeoffice/votes')
     }
 
 }

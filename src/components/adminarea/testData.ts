@@ -17,6 +17,7 @@ export const testData: Survey = {
             question: 'Politisch interessiert',
             graphType: GraphType.BAR,
             surveyChoices: SurveyChoices.SINGLESELECT,
+            isValid: true,
             choices: [
                 {
                     id: 'choice-1',
@@ -33,6 +34,7 @@ export const testData: Survey = {
             question: 'Wie oft schaust du am Tag aufs Handy?',
             graphType: GraphType.BAR,
             surveyChoices: SurveyChoices.SINGLESELECT,
+            isValid: true,
             choices: [
                 {
                     id: 'choice-1',
@@ -53,6 +55,7 @@ export const testData: Survey = {
             question: 'Welche Musikrichtung hörst du?',
             graphType: GraphType.RADAR,
             surveyChoices: SurveyChoices.MULTISELECT,
+            isValid: true,
             choices: [
                 {
                     id: 'choice-1',
@@ -81,6 +84,7 @@ export const testData: Survey = {
             question: 'Witzigste Erfahrung in der FourEnergy?',
             graphType: GraphType.TEXT,
             surveyChoices: SurveyChoices.SINGLESELECT,
+            isValid: true,
             choices: []
         },
         {
@@ -88,6 +92,7 @@ export const testData: Survey = {
             question: 'Was ist dir bei Menschen am wichtigsten?',
             graphType: GraphType.RADAR,
             surveyChoices: SurveyChoices.SINGLESELECT,
+            isValid: true,
             choices: [
                 {
                     id: 'choice-1',
@@ -112,6 +117,7 @@ export const testData: Survey = {
             question: 'Wie regelmäßig nimmst du am News@4E teil?',
             graphType: GraphType.BAR,
             surveyChoices: SurveyChoices.SINGLESELECT,
+            isValid: true,
             choices: [
                 {
                     id: 'choice-1',
@@ -136,6 +142,7 @@ export const testData: Survey = {
             question: 'Was hindert dich am meisten an der Teilnahme?',
             graphType: GraphType.TEXT,
             surveyChoices: SurveyChoices.SINGLESELECT,
+            isValid: true,
             choices: []
         },
         {
@@ -143,6 +150,7 @@ export const testData: Survey = {
             question: 'Von wann bis wann ist die beste Zeit?',
             graphType: GraphType.BAR,
             surveyChoices: SurveyChoices.SINGLESELECT,
+            isValid: true,
             choices: [
                 {
                     id: 'choice-1',
@@ -167,6 +175,7 @@ export const testData: Survey = {
             question: 'Was ist deine aktuelle Rolle bei FourEnergy?',
             graphType: GraphType.BAR,
             surveyChoices: SurveyChoices.MULTISELECT,
+            isValid: true,
             choices: [
                 {
                     id: 'choice-1',
@@ -191,6 +200,7 @@ export const testData: Survey = {
             question: 'Wie ging es dir letztes Jahr?',
             graphType: GraphType.BAR,
             surveyChoices: SurveyChoices.SINGLESELECT,
+            isValid: true,
             choices: [
                 {
                     id: 'choice-1',
@@ -215,6 +225,7 @@ export const testData: Survey = {
             question: 'Wie geht es dir dieses Jahr?',
             graphType: GraphType.BAR,
             surveyChoices: SurveyChoices.SINGLESELECT,
+            isValid: true,
             choices: [
                 {
                     id: 'choice-1',

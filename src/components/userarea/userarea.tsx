@@ -21,18 +21,19 @@ export const UserArea = (props: NavigationProps & StoreProps): JSX.Element => {
     const survey = props.uiStore!.currentSurvey
 
     let surveyEntryIndex = 0
-    let surveyEntry = survey.surveyEntries[surveyEntryIndex]
+    const [surveyEntry, setSurveyEntry] = React.useState(survey.surveyEntries[surveyEntryIndex])
     if (surveyEntry == null) {
-        surveyEntry = new SurveyEntry()
+        setSurveyEntry(new SurveyEntry())
     }
     const [showResult, setShowResult] = React.useState(false)
 
     const clickNextEntry = (event: any): void => {
+        // debugger
         surveyEntryIndex++
-        if (surveyEntryIndex < survey.surveyEntries.length) {
+        if (surveyEntryIndex >= survey.surveyEntries.length) {
             return
         }
-        surveyEntry = survey.surveyEntries[surveyEntryIndex]
+        setSurveyEntry(survey.surveyEntries[surveyEntryIndex])
     }
     
     const clickShowResult = (event: any): void => {

@@ -1,7 +1,10 @@
+import { ChoiceId } from './surveyEntry'
+
 export class SurveyAnswer {
     id?: string
+    choice!: ChoiceId
     user!: string
-    value!: SurveyAnswerValue
+    value?: SurveyAnswerValue
 }
 
 // TODO: How to manage type dynamicly. Especially long strings should be covered by Ids to reduce data usage..

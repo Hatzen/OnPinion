@@ -19,6 +19,7 @@ export class FirebaseService {
         this.app = initializeApp(firebaseConfig)
         this.analytics = getAnalytics(this.app)
         this.database = getDatabase(this.app)
+        console.log('Collecting data is ' + this.analytics.app.automaticDataCollectionEnabled)
 
         /*
         // https://firebase.google.com/docs/web/learn-more?authuser=1&hl=de#config-object

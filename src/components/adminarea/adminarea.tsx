@@ -29,10 +29,4 @@ const AdminArea = (props: NavigationProps): JSX.Element => {
     )
 }
 
-export class SurveyEntry {
-    id!: string
-    name!: string
-    participationcount!: number
-}
-
 export default AdminArea

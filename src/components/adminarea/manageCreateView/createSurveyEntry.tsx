@@ -17,7 +17,6 @@ export const CreateSurveyEntry = (props: CreateSurveyEntryProps): JSX.Element =>
             <ListItem style={{display: 'block', padding: '20px'}} divider>
                 <Button
                     onClick={() => {
-                        console.log('Test')
                         props.deleteEntryAction(surveyEntry)}
                     }
                     style={{float: 'right'}}

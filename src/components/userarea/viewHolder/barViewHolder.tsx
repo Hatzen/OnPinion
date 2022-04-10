@@ -1,21 +1,23 @@
 
-import { ResponsiveBar } from '@nivo/bar'
+import { BarDatum, ResponsiveBar } from '@nivo/bar'
 import * as React from 'react'
+import { SurveyEntry } from '../../../model/surveyEntry'
 
 export class BarHolder {
 
-    count: number
+    keyValueMap: {[key: string]: number} = {}
 
-    constructor (count: number) {
-        this.count = count
+    constructor (surveyEntry: SurveyEntry) {
+        this.keyValueMap = {}
+        surveyEntry.surveyAnswers.forEach(answer => {
+            const key = surveyEntry.choices.find(choice => choice.id === answer.choice)!.text
+            this.keyValueMap[key] = (this.keyValueMap[key] || 0) + 1
+        })
     }
     
-    get barData(): any {
+    get barData(): BarDatum[] {
         return [
-            {
-                'answer': 'yes',
-                'Homeoffice': this.count
-            }
+            this.keyValueMap
         ]
     }
 
@@ -23,9 +25,7 @@ export class BarHolder {
         // https://nivo.rocks/bar/
         return <ResponsiveBar
             data={this.barData}
-            keys={[
-                'Homeoffice'
-            ]}
+            keys={Object.keys(this.keyValueMap)}
             indexBy="answer"
             margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
             padding={0.3}

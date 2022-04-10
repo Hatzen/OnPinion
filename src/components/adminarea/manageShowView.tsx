@@ -1,17 +1,18 @@
 import * as React from 'react'
 import { Checkbox, FormControlLabel, FormGroup} from '@mui/material'
-import { Survey } from '../../model/survey'
-import { FirebaseService } from '../../services/firebase.service'
 import { useParams } from 'react-router-dom'
 import moment from 'moment'
+import { inject, observer } from 'mobx-react'
+import { injectClause, StoreProps } from '../../stores/storeHelper'
 
-export const ManageShowView = (): JSX.Element => {
+export const ManageShowView = (props: StoreProps): JSX.Element => {
     const { surveyId } = useParams()
-    const [survey, setSurvey] = React.useState(new Survey())
-
-    const service = new FirebaseService()
-    service.initFirebase()
-    service.getSurveyWithId(surveyId!).then(setSurvey)
+    
+    React.useEffect(() => {
+        props.uiStore!.loadSurvey(surveyId!)
+    })
+    const survey = props.uiStore!.currentSurvey
+    
 
     const createdAtFormatted = moment(survey.createdAt).format()
     return (
@@ -22,6 +23,9 @@ export const ManageShowView = (): JSX.Element => {
                 Teilnehmer bisher: {survey.participations} <br />
                 Anzahl fragen: {survey.surveyEntries?.length} <br />
                 Erstellt am: {createdAtFormatted} <br />
+                <br /><br />
+                [// TODO: display questions etc.]
+
 
                 <FormControlLabel disabled control={<Checkbox disabled/>} label="Umfrage schließen" />
             </FormGroup>
@@ -29,4 +33,4 @@ export const ManageShowView = (): JSX.Element => {
     )
 }
 
-export default ManageShowView
+export default inject(...injectClause)(observer(ManageShowView))

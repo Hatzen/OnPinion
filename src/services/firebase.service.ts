@@ -3,7 +3,8 @@ import { Survey } from './../model/survey'
 // https://firebase.google.com/docs/web/setup?authuser=1&hl=de
 import { FirebaseApp, initializeApp } from 'firebase/app'
 import { getAnalytics, Analytics } from 'firebase/analytics'
-import { child, Database, DatabaseReference, get, getDatabase, onValue, push, ref, set } from 'firebase/database'
+import { getAuth, onAuthStateChanged, signInAnonymously } from 'firebase/auth'
+import { child, Database, DatabaseReference, get, getDatabase, onValue, push, ref } from 'firebase/database'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -20,12 +21,36 @@ export class FirebaseService {
         this.analytics = getAnalytics(this.app)
         this.database = getDatabase(this.app)
         console.log('Collecting data is ' + this.analytics.app.automaticDataCollectionEnabled)
+    }
 
+    loginAndGetUserId(callback: (userId: string) => void): void {
+        const auth = getAuth()
+        signInAnonymously(auth)
+            .then(() => {
+                // Signed in..
+                // TODO: Do we need onAuthStateChanged or does this Promise doesnt pass the user as well?
+            })
+            .catch((error) => {
+                const errorCode = error.code
+                const errorMessage = error.message
+                console.error('Firebase anonymous login failed: ' + errorCode + '- ' + errorMessage)
+            })
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in, see docs for a list of available properties
+                // https://firebase.google.com/docs/reference/js/firebase.User
+                const uid = user.uid
+                callback(uid)
+            } else {
+                // User is signed out
+            }
+        })
+
+        // TODO: enable authentication via email.
         /*
         // https://firebase.google.com/docs/web/learn-more?authuser=1&hl=de#config-object
         https://firebase.google.com/docs/auth/web/firebaseui?hl=de&authuser=1#set_up_sign-in_methods
 
-        TODO: Why is auth not defined
         const ui = new firebaseui.auth.AuthUI(firebase.auth())
         ui.start('#firebaseui-auth-container', {
             signInOptions: [
@@ -39,21 +64,6 @@ export class FirebaseService {
     }
 
     // https://firebase.google.com/docs/database/web/read-and-write
-    listenData(callback: (count: number) => void): void {
-        onValue(this.ref, (snapshot) => {
-            const data = snapshot.val() // TODO: Add soem typings
-            callback(data)
-        })
-    }
-
-    updateData(count: number): void {
-        set(this.ref, Math.random()*12 + count)
-    }
-    
-    get ref(): DatabaseReference {
-        return ref(this.database, this.CUSTOMER + '/surveys/first/surveyentrys/homeoffice/votes')
-    }
-
 
     addSurvey(survey: Survey): void {
         console.log('create entry: ', survey)
@@ -82,14 +92,13 @@ export class FirebaseService {
                 ).catch((error) => {
                     reject()
                     console.error(error)
-                }
-                )
+                })
         })
     }
 
     getSurveyWithId(id: string): Promise<Survey> {
         return new Promise((resolve, reject) => {
-            get(child(ref(this.database), this.CUSTOMER + '/surveys/' + id))
+            get(this.getRefForId(id))
                 .then((snapshot) => {
                     if (snapshot.exists()) {
                         const survey = snapshot.val() as Survey
@@ -106,6 +115,19 @@ export class FirebaseService {
                 }
                 )
         })
+    }
+
+    // TODO: How to unregister watch?
+    watchForSurvey(id: string, callback: (survey: Survey) => void): void {
+        onValue(this.getRefForId(id), (snapshot) => {
+            const survey = snapshot.val() as Survey
+            survey.id = id
+            callback(survey)
+        })
+    }
+
+    private getRefForId(id: string): DatabaseReference {
+        return child(ref(this.database), this.CUSTOMER + '/surveys/' + id)
     }
 
 }

@@ -82,7 +82,6 @@ export const CreateSurveyEntry = (props: CreateSurveyEntryProps): JSX.Element =>
                 <List>
                     {
                         choices.map(entry => {
-                            debugger
                             return (<CreateSurveyChoice
                                 surveyChoice={entry}
                                 deleteEntryAction={removeSurveyChoiceComponent}

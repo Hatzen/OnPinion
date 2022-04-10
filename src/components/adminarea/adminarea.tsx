@@ -1,17 +1,15 @@
 import { Grid } from '@mui/material'
 import React from 'react'
 import { Survey } from '../../model/survey'
-import { FirebaseService } from '../../services/firebase.service'
 import AddCard from './addCard'
 import SurveyCard from './surveyCard'
 import { NavigationProps } from '../app'
+import { injectClause, StoreProps } from '../../stores/storeHelper'
+import { inject, observer } from 'mobx-react'
 
-const AdminArea = (props: NavigationProps): JSX.Element => {
+const AdminArea = (props: NavigationProps & StoreProps): JSX.Element => {
     const [surveys, setSurveys] = React.useState(new Array<Survey>())
-
-    const service = new FirebaseService()
-    service.initFirebase()
-    service.getSurveys().then(setSurveys)
+    props.uiStore!.firebaseService.getSurveys().then(setSurveys)
 
     return (
         <div>
@@ -29,4 +27,4 @@ const AdminArea = (props: NavigationProps): JSX.Element => {
     )
 }
 
-export default AdminArea
+export default inject(...injectClause)(observer(AdminArea))

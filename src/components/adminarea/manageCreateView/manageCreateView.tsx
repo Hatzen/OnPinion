@@ -3,17 +3,27 @@ import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, Input, Inpu
 import CreateSurveyEntry from './createSurveyEntry'
 import { SurveyEntry } from '../../../model/surveyEntry'
 import { Survey } from '../../../model/survey'
-import { FirebaseService } from '../../../services/firebase.service'
+import { injectClause, StoreProps } from '../../../stores/storeHelper'
+import { inject, observer } from 'mobx-react'
+import { testData } from '../testData'
 
-export const ManageCreateView = (): JSX.Element => {
+export const ManageCreateView = (props: StoreProps): JSX.Element => {
     const [open, setOpen] = React.useState(false)
     const [text, setText] = React.useState('')
-    const [survey] = React.useState(new Survey())
+    const [survey, setSurvey] = React.useState(new Survey())
     const [surveyEntries, setSurveyEntries] = React.useState(new Array<SurveyEntry>(new SurveyEntry()))
     survey.canSeeResult = true
     survey.canSkip = true
     survey.isClosed = false
     survey.createdAt = new Date().getTime()
+
+    if (process.env.NODE_ENV !== 'production') {
+        // TODO: Remove. Just for creating testdata faster. Currently values are not displayed, but created..
+        React.useEffect(() => {
+            setSurvey(testData)
+            setSurveyEntries(testData.surveyEntries)
+        })
+    }
 
     const addSurveyEntryComponent = (surveyEntry: SurveyEntry): void => {
         setSurveyEntries(surveyEntries.concat(surveyEntry))
@@ -25,6 +35,7 @@ export const ManageCreateView = (): JSX.Element => {
 
     const handleClick = (): void => {
         const valid = surveyEntries.find(entry => entry.isValid !== true) == null
+       // debugger
         if (!valid && survey.name != null && survey.name.length !== 0 && surveyEntries.length > 0) {
             setText('Bitte fehlende Werte ergänzen.')
             setOpen(true)
@@ -32,9 +43,7 @@ export const ManageCreateView = (): JSX.Element => {
         }
         survey.surveyEntries = surveyEntries
 
-        const service = new FirebaseService()
-        service.initFirebase()
-        service.addSurvey(survey)
+        props.uiStore!.firebaseService.addSurvey(survey)
 
         setText('Umfrage erfolgeich erstellt.')
         setOpen(true)
@@ -88,4 +97,4 @@ export const ManageCreateView = (): JSX.Element => {
     )
 }
 
-export default ManageCreateView
+export default inject(...injectClause)(observer(ManageCreateView))

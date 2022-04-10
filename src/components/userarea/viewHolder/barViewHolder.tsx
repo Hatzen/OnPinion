@@ -9,8 +9,12 @@ export class BarHolder {
 
     constructor (surveyEntry: SurveyEntry) {
         this.keyValueMap = {}
+        if (surveyEntry.surveyAnswers == null) {
+            return
+        }
+        // debugger
         // TODO: surveyEntry.surveyAnswers? we could work around optional with Partitial constructor within FirebaseService to init Arrays..
-        surveyEntry.surveyAnswers?.forEach(answer => {
+        Object.values(surveyEntry.surveyAnswers!).forEach(answer => {
             const key = surveyEntry.choices.find(choice => choice.id === answer.choice)!.text
             this.keyValueMap[key] = (this.keyValueMap[key] || 0) + 1
         })

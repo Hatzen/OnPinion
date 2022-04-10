@@ -62,8 +62,6 @@ export const ManageCreateView = (): JSX.Element => {
                 <FormControlLabel disabled control={<Checkbox defaultChecked/>} label="Ergebnisse Sichtbar" />
             </FormGroup>
 
-
-            [Generic part]
             <List>
                 {
                     surveyEntries.map(entry => {

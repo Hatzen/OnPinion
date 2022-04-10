@@ -1,9 +1,9 @@
 import { Button, Typography } from '@mui/material'
+import { inject, observer } from 'mobx-react'
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Survey } from '../../model/survey'
 import { SurveyEntry } from '../../model/surveyEntry'
-import { FirebaseService } from '../../services/firebase.service'
+import { injectClause, StoreProps } from '../../stores/storeHelper'
 import { NavigationProps } from '../app'
 import ParticipationInputView from './participationInputView'
 import ResultView from './resultView'
@@ -12,16 +12,19 @@ export interface SurveyEntryBasedComponentProps {
     surveyEntry: SurveyEntry
 }
 
-export const UserArea = (props: NavigationProps): JSX.Element => {
+export const UserArea = (props: NavigationProps & StoreProps): JSX.Element => {
     const { surveyId } = useParams()
-    const [survey, setSurvey] = React.useState(new Survey())
 
-    const service = new FirebaseService()
-    service.initFirebase()
-    service.getSurveyWithId(surveyId!).then(setSurvey)
+    React.useEffect(() => {
+        props.uiStore!.loadSurvey(surveyId!)
+    })
+    const survey = props.uiStore!.currentSurvey
 
     let surveyEntryIndex = 0
     let surveyEntry = survey.surveyEntries[surveyEntryIndex]
+    if (surveyEntry == null) {
+        surveyEntry = new SurveyEntry()
+    }
     let CurrentComponent = ParticipationInputView
 
     const clickNextEntry = (event: any): void => {
@@ -64,4 +67,4 @@ export const UserArea = (props: NavigationProps): JSX.Element => {
     )
 }
 
-export default UserArea
+export default inject(...injectClause)(observer(UserArea))

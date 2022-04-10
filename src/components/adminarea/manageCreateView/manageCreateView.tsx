@@ -1,14 +1,14 @@
 import * as React from 'react'
 import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, Input, InputLabel, List, ListItem, ListItemText, Snackbar } from '@mui/material'
-import CreateSurveyEntry from './manageCreateView/createSurveyEntry'
-import { SurveyEntry } from '../../model/surveyEntry'
-import { Survey } from '../../model/survey'
-import { FirebaseService } from '../../services/firebase.service'
+import CreateSurveyEntry from './createSurveyEntry'
+import { SurveyEntry } from '../../../model/surveyEntry'
+import { Survey } from '../../../model/survey'
+import { FirebaseService } from '../../../services/firebase.service'
 
 export const ManageCreateView = (): JSX.Element => {
     const [open, setOpen] = React.useState(false)
     const [text, setText] = React.useState('')
-    const [survey, setSurvey] = React.useState(new Survey())
+    const [survey] = React.useState(new Survey())
     const [surveyEntries, setSurveyEntries] = React.useState(new Array<SurveyEntry>(new SurveyEntry()))
     survey.canSeeResult = true
     survey.canSkip = true

@@ -15,7 +15,7 @@ export class SurveyEntry {
     graphType!: GraphType
     surveyChoices!: SurveyChoices
     choices: SurveyChoice[] = []
-    surveyAnswers: SurveyAnswer[] = []
+    surveyAnswers?: SurveyAnswer[] = []
 
     constructor() {
         this.id = 'dummy-' + new Date().getTime()

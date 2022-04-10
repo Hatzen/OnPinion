@@ -1,3 +1,4 @@
+import { SurveyAnswer } from './../model/surveyAnswer'
 import { Survey } from './../model/survey'
 // import firebaseui from 'firebaseui'
 // https://firebase.google.com/docs/web/setup?authuser=1&hl=de
@@ -69,6 +70,13 @@ export class FirebaseService {
         console.log('create entry: ', survey)
         const myRef = ref(this.database, this.CUSTOMER + '/surveys/')
         push(myRef, survey)
+    }
+
+    addSurveyAnswer(surveyId: string, surveyEntryId: string, surveyAnswer: SurveyAnswer): void {
+        const path = this.CUSTOMER + '/surveys/' + surveyId + '/surveyEntries/' + surveyEntryId + '/surveyAnswers'
+        console.log('add answer on path ' + path, surveyAnswer)
+        const myRef = ref(this.database, path)
+        push(myRef, surveyAnswer)
     }
 
     getSurveys(): Promise<Survey[]> {

@@ -22,6 +22,9 @@ export const UserArea = (props: NavigationProps): JSX.Element => {
 
     let surveyEntryIndex = 0
     let surveyEntry = survey.surveyEntries[surveyEntryIndex]
+    if (surveyEntry == null) {
+        surveyEntry = new SurveyEntry()
+    }
     let CurrentComponent = ParticipationInputView
 
     const clickNextEntry = (event: any): void => {

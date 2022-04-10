@@ -14,7 +14,7 @@ export class SurveyEntry {
     question!: string
     graphType!: GraphType
     surveyChoices!: SurveyChoices
-    choices!: SurveyChoice[]
+    choices: SurveyChoice[] = []
     surveyAnswers: SurveyAnswer[] = []
 
     constructor() {

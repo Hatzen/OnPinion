@@ -49,8 +49,14 @@ export class FirebaseService {
     updateData(count: number): void {
         set(this.ref, Math.random()*12 + count)
     }
+    
+    get ref(): DatabaseReference {
+        return ref(this.database, this.CUSTOMER + '/surveys/first/surveyentrys/homeoffice/votes')
+    }
+
 
     addSurvey(survey: Survey): void {
+        console.log('create entry: ', survey)
         const myRef = ref(this.database, this.CUSTOMER + '/surveys/')
         push(myRef, survey)
     }
@@ -100,10 +106,6 @@ export class FirebaseService {
                 }
                 )
         })
-    }
-
-    get ref(): DatabaseReference {
-        return ref(this.database, this.CUSTOMER + '/surveys/first/surveyentrys/homeoffice/votes')
     }
 
 }

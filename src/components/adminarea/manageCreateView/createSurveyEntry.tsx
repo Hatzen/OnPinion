@@ -1,8 +1,9 @@
-import { Button, FormControl, Input, InputLabel, ListItem, MenuItem, Select } from '@mui/material'
+import { Button, FormControl, Input, InputLabel, List, ListItem, ListItemText, MenuItem, Select } from '@mui/material'
 import * as React from 'react'
 import { GraphType } from '../../../model/graphType'
 import { SurveyChoices } from '../../../model/surveyChoices'
-import { SurveyEntry } from '../../../model/surveyEntry'
+import { SurveyChoice, SurveyEntry } from '../../../model/surveyEntry'
+import CreateSurveyChoice from './createChoice'
 
 interface CreateSurveyEntryProps {
     surveyEntry: SurveyEntry
@@ -10,8 +11,30 @@ interface CreateSurveyEntryProps {
 }
 
 export const CreateSurveyEntry = (props: CreateSurveyEntryProps): JSX.Element => {
-    const surveyEntry = props.surveyEntry
+    const [surveyEntry] = React.useState(props.surveyEntry)
+    const [choices, setChoices] = React.useState(surveyEntry.choices)
+
+    let choicesCount = 1
+
+    const createSurveyChoice = (): SurveyChoice => {
+        const choice = new SurveyChoice()
+        choice.id = 'surveyChoice-' + ++choicesCount
+        return choice
+    }
     
+    const addSurveyChoice = (): void => {
+        const tmpChoices = choices.concat(createSurveyChoice())
+        setChoices(tmpChoices)
+        surveyEntry.choices = tmpChoices
+    }
+
+    const removeSurveyChoiceComponent = (surveyChoice: SurveyChoice): void => {
+        // TODO: This does not set the attribute of surveyEntry, does it?
+        const tmpChoices = choices.filter(entry => entry !== surveyChoice)
+        setChoices(tmpChoices)
+        surveyEntry.choices = tmpChoices
+    }
+
     return (
         <div>
             <ListItem style={{display: 'block', padding: '20px'}} divider>
@@ -54,6 +77,22 @@ export const CreateSurveyEntry = (props: CreateSurveyEntryProps): JSX.Element =>
                         <MenuItem value={SurveyChoices.PRIORITY}>Priorisieren</MenuItem>
                     </Select>
                 </FormControl>
+
+                
+                <List>
+                    {
+                        choices.map(entry => {
+                            debugger
+                            return (<CreateSurveyChoice
+                                surveyChoice={entry}
+                                deleteEntryAction={removeSurveyChoiceComponent}
+                                key={'choice-' + entry.id} />)
+                        })
+                    }
+                    <ListItem divider onClick={addSurveyChoice}>
+                        <ListItemText primary="+ Antwort hinzufügen" />
+                    </ListItem>
+                </List>
             </ListItem>
         </div>
     )

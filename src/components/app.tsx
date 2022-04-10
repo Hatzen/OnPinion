@@ -10,6 +10,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserCheck, faAdd } from '@fortawesome/free-solid-svg-icons'
 import UserArea from './userarea'
 import ManageCreateView from './adminarea/manageCreateView'
+import ManageShowView from './adminarea/manageShowView'
 
 // TODO: Split up file: Router, Stores, Icons, Helper
 
@@ -36,6 +37,7 @@ export const App = (): JSX.Element => {
                 [Admin]
                 <Route path="/manage" element={<AdminArea navigate={useNavigate()}></AdminArea>} />
                 <Route path="/manage/create" element={<ManageCreateView></ManageCreateView>} />
+                <Route path="/manage/result/:surveyId" element={<ManageShowView></ManageShowView>} />
                 [User]
                 <Route path="/result/:surveyId" element={<AdminArea navigate={useNavigate()}></AdminArea>} />
                 <Route path="/participate/:surveyId" element={<UserArea navigate={useNavigate()}></UserArea>} />

@@ -25,7 +25,6 @@ export const ManageCreateView = (): JSX.Element => {
 
     const handleClick = (): void => {
         const valid = surveyEntries.find(entry => entry.isValid !== true) == null
-        debugger
         if (!valid && survey.name != null && survey.name.length !== 0 && surveyEntries.length > 0) {
             setText('Bitte fehlende Werte ergänzen.')
             setOpen(true)

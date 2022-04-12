@@ -15,21 +15,19 @@ export class TextViewHolder {
     }
 
     get cards(): JSX.Element {
-        return (<Grid container spacing={{ xs: 2, md: 2 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+        return (<div>
             {this.comments.map((element, index) => (
-                <Grid item xs={2} sm={2} md={2} key={index}>
-                    <Card>
-                        <CardActionArea>
-                            <CardContent>
-                                <Typography gutterBottom variant="body1" component="div">
-                                    {element}
-                                </Typography>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
-                </Grid>
+                <Card key={Math.random()}>
+                    <CardActionArea>
+                        <CardContent>
+                            <Typography gutterBottom variant="body1" component="div">
+                                {element}
+                            </Typography>
+                        </CardContent>
+                    </CardActionArea>
+                </Card>
             ))}
-        </Grid>)
+        </div>)
     }
 
 }

@@ -6,7 +6,7 @@ import { FirebaseApp, initializeApp } from 'firebase/app'
 import { getAnalytics, Analytics } from 'firebase/analytics'
 import { getAuth, onAuthStateChanged, signInAnonymously } from 'firebase/auth'
 import { child, Database, DatabaseReference, get, getDatabase, onValue, push, ref } from 'firebase/database'
-import SurveyMapper, { FirebaseSurvey } from '../stores/mapper/SurveyMapper'
+import SurveyMapper, { FirebaseSurvey } from '../mapper/surveyMapper'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 

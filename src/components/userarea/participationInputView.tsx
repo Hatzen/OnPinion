@@ -13,7 +13,10 @@ interface ParticipationInputViewProps extends SurveyEntryBasedComponentProps, St
 }
 
 export const ParticipationInputView = (props: ParticipationInputViewProps): JSX.Element => {
-    const surveyEntry = props.surveyEntry
+    const [surveyEntry, setSurveyEntry] = React.useState(props.surveyEntry)
+    // Keep prop synced. https://stackoverflow.com/a/54568167/8524651
+    React.useEffect(() => { setSurveyEntry(props.surveyEntry) }, [props.surveyEntry])
+
     const answer = new SurveyAnswer()
 
     const handleChange = (event: any): void => {
@@ -24,27 +27,39 @@ export const ParticipationInputView = (props: ParticipationInputViewProps): JSX.
         answer.user = props.uiStore!.userId!
         props.setAnswer(answer)
     }
+    
+    // https://stackoverflow.com/a/44078785/8524651
+    const generateUUID = (): string => {
+        return Date.now().toString(36) + Math.random().toString(36).substring(2)
+    }
 
+    let textArea = (<div></div>)
+    let radioGroup = (<div></div>)
+    if (surveyEntry.graphType === GraphType.TEXT) {
+        textArea = (<TextareaAutosize
+            style={{width: 500, height: 200}}
+            onChange={handleChange}
+            minRows={5}
+            placeholder="Hier den Text eingeben.."/>)
+    } else {
+        radioGroup = (<RadioGroup>
+            {
+                surveyEntry.choices?.map(choice => {
+                    const key = 'input-field-' + surveyEntry.choices.indexOf(choice) + surveyEntry.question + generateUUID() + Math.random()
+                    if (surveyEntry.surveyChoices === SurveyChoices.SINGLESELECT) {
+                        return <FormControlLabel key={key} onChange={handleChange} value={choice.id} control={<Radio />} label={choice.text} />
+                    } else if (surveyEntry.surveyChoices === SurveyChoices.MULTISELECT) {
+                        return <FormControlLabel key={key} onChange={handleChange} value={choice.id} control={<Checkbox />} label={choice.text} />
+                    }
+                })
+            }
+        </RadioGroup>)
+    }
+    
     return (
         <div style={{minHeight: '500px', display: 'block'}}>
-            <RadioGroup
-                row
-                aria-labelledby="demo-row-radio-buttons-group-label"
-                name="row-radio-buttons-group"
-            >
-                {
-                    surveyEntry.choices?.map(choice => {
-                        const key = 'input-field-' + surveyEntry.choices.indexOf(choice)
-                        if (surveyEntry.surveyChoices === SurveyChoices.SINGLESELECT) {
-                            return <FormControlLabel key={key} onChange={handleChange} value={choice.id} control={<Checkbox />} label={choice.text} />
-                        } else if (surveyEntry.surveyChoices === SurveyChoices.MULTISELECT) {
-                            return <FormControlLabel key={key} onChange={handleChange} value={choice.id} control={<Radio />} label={choice.text} />
-                        } else if (surveyEntry.graphType === GraphType.TEXT) {
-                            return (<TextareaAutosize onChange={handleChange} ></TextareaAutosize>)
-                        }
-                    })
-                }
-            </RadioGroup>
+            {textArea}
+            {radioGroup}
         </div>
     )
 }

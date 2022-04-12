@@ -37,7 +37,8 @@ export const UserArea = (props: NavigationProps & StoreProps): JSX.Element => {
             props.uiStore!.addAnswer(surveyEntry, answer)
         )
         setSurveyEntryIndex(surveyEntryIndex + 1)
-        if (surveyEntryIndex >= Object.keys(survey.surveyEntries).length) {
+        const surveyFinished = surveyEntryIndex >= survey.surveyEntries.length - 1
+        if (surveyFinished) {
             return
         }
         setSurveyEntry(survey.surveyEntries[surveyEntryIndex])
@@ -55,7 +56,6 @@ export const UserArea = (props: NavigationProps & StoreProps): JSX.Element => {
             currentAnswer.push(surveyAnswer)
         }
     }
-    
     if (surveyEntry == null) {
         return (
             <Typography style={{textAlign: 'center', verticalAlign: 'center', position: 'relative', top: '40%'}} gutterBottom variant="h3" component="div">
@@ -63,7 +63,8 @@ export const UserArea = (props: NavigationProps & StoreProps): JSX.Element => {
             </Typography>
         )
     }
-    if (surveyEntryIndex >= Object.keys(survey.surveyEntries).length) {
+    const surveyFinished = surveyEntryIndex >= survey.surveyEntries.length - 1
+    if (surveyFinished) {
         return (
             <Typography style={{textAlign: 'center', verticalAlign: 'center', position: 'relative', top: '40%'}} gutterBottom variant="h3" component="div">
                 Vielen Dank für die Teilnahme.

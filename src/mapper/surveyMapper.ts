@@ -1,5 +1,5 @@
-import { SurveyEntry } from '../../model/surveyEntry'
-import { Survey } from './../../model/survey'
+import { SurveyEntry } from '../model/surveyEntry'
+import { Survey } from '../model/survey'
 
 export default class SurveyMapper {
 

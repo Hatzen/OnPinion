@@ -11,7 +11,10 @@ export class Survey {
     isClosed = false
     surveyEntries: SurveyEntry[] = []
     
-    constructor() {
+    constructor(copy?: Partial<Survey>) {
         this.id = 'dummy2-' + new Date().getTime()
+        if (copy != null) {
+            Object.assign(this, copy)
+        }
     }
 }

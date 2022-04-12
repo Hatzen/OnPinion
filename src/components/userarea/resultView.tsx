@@ -3,6 +3,7 @@ import { GraphType } from '../../model/graphType'
 import { SurveyEntryBasedComponentProps } from './userarea'
 import { BarHolder } from './viewHolder/barViewHolder'
 import { RadarHolder } from './viewHolder/radarViewHolder'
+import { TextViewHolder } from './viewHolder/textViewHolder'
 
 export const ResultView = (props: SurveyEntryBasedComponentProps): JSX.Element => {
     const [surveyEntry, setSurveyEntry] = React.useState(props.surveyEntry)
@@ -18,7 +19,7 @@ export const ResultView = (props: SurveyEntryBasedComponentProps): JSX.Element =
         CurrentComponent = new RadarHolder(surveyEntry).radar
         break
     case GraphType.TEXT:
-        CurrentComponent = new RadarHolder(surveyEntry).radar
+        CurrentComponent = new TextViewHolder(surveyEntry).cards
         break
     }
 

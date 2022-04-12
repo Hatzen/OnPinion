@@ -10,7 +10,7 @@ export const testData: Survey = {
     canSkip: false,
     canSeeResult: false,
     deadline: -1,
-    isClosed:false,
+    isClosed: false,
     surveyEntries: [
         {
             id: 'surveyEntry1',
@@ -244,6 +244,6 @@ export const testData: Survey = {
                     text: 'Eher nicht so gut'
                 }
             ]
-        },
+        }
     ]
 } as Survey

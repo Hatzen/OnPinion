@@ -16,39 +16,52 @@ export const UserArea = (props: NavigationProps & StoreProps): JSX.Element => {
     const { surveyId } = useParams()
 
     React.useEffect(() => {
-        props.uiStore!.loadSurvey(surveyId!)
-    })
+        props.uiStore!.watchSurvey(surveyId!)
+    }, []) // empty array so it is called only once.
     const survey = props.uiStore!.currentSurvey
 
-    let surveyEntryIndex = 0
-    let surveyEntry = survey.surveyEntries[surveyEntryIndex]
-    if (surveyEntry == null) {
-        surveyEntry = new SurveyEntry()
-    }
-    let CurrentComponent = ParticipationInputView
+    const [surveyEntryIndex, setSurveyEntryIndex] = React.useState(0)
+    const [surveyEntry, setSurveyEntry] = React.useState(new SurveyEntry())
+    
+    React.useEffect(() => {
+        setSurveyEntry(survey.surveyEntries[surveyEntryIndex])
+    })
+
+    const [showResult, setShowResult] = React.useState(false)
 
     const clickNextEntry = (event: any): void => {
-        surveyEntryIndex++
-        surveyEntry = survey.surveyEntries[surveyEntryIndex]
+        setSurveyEntryIndex(surveyEntryIndex + 1)
+        if (surveyEntryIndex >= survey.surveyEntries.length) {
+            return
+        }
+        setSurveyEntry(survey.surveyEntries[surveyEntryIndex])
     }
     
     const clickShowResult = (event: any): void => {
-        if (CurrentComponent === ResultView) {
-            CurrentComponent = ParticipationInputView
-        } else {
-            CurrentComponent = ResultView
-        }
+        setShowResult(!showResult)
+    }
+    
+    if (surveyEntryIndex >= survey.surveyEntries.length || surveyEntry == null) {
+        return (
+            <Typography style={{textAlign: 'center', verticalAlign: 'center', position: 'relative', top: '40%'}} gutterBottom variant="h3" component="div">
+                Vielen Dank für die Teilnahme.
+            </Typography>
+        )
+    }
+    let content = <ParticipationInputView surveyEntry={surveyEntry}/>
+    if (showResult) {
+        content = <ResultView surveyEntry={surveyEntry}/>
     }
 
     return (
-        <div>
+        <div style={{width: '800px', margin: 'auto'}}>
             <Typography gutterBottom variant="h3" component="div">
                 {survey.name}
             </Typography>
             <Typography gutterBottom variant="h5" component="div">
-                {surveyEntryIndex}. {surveyEntry.question}
+                {surveyEntryIndex+1}. {surveyEntry.question}
             </Typography>
-            <CurrentComponent surveyEntry={surveyEntry}></CurrentComponent>
+            {content}
             <div style={{position: 'fixed', bottom: 0, left: 20, right: 20, height: 125}}>
                 <Button
                     onClick={clickShowResult}

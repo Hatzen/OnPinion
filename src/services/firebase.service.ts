@@ -1,3 +1,5 @@
+import { SurveyEntry } from './../model/surveyEntry'
+import { SurveyAnswer } from './../model/surveyAnswer'
 import { Survey } from './../model/survey'
 // import firebaseui from 'firebaseui'
 // https://firebase.google.com/docs/web/setup?authuser=1&hl=de
@@ -71,6 +73,13 @@ export class FirebaseService {
         push(myRef, survey)
     }
 
+    addSurveyAnswer(surveyId: string, surveyEntryId: string, surveyAnswer: SurveyAnswer): void {
+        const path = this.CUSTOMER + '/surveys/' + surveyId + '/surveyEntries/' + surveyEntryId + '/surveyAnswers'
+        console.log('add answer on path ' + path, surveyAnswer)
+        const myRef = ref(this.database, path)
+        push(myRef, surveyAnswer)
+    }
+
     getSurveys(): Promise<Survey[]> {
         return new Promise((resolve, reject) => {
             get(child(ref(this.database), this.CUSTOMER + '/surveys/'))
@@ -121,6 +130,14 @@ export class FirebaseService {
     watchForSurvey(id: string, callback: (survey: Survey) => void): void {
         onValue(this.getRefForId(id), (snapshot) => {
             const survey = snapshot.val() as Survey
+            // User entered wrong Id.
+            if (survey == null) {
+                const dummySurvey = new Survey()
+                dummySurvey.name = 'Ungültige UmfrageId eingegeben'
+                dummySurvey.surveyEntries.push(new SurveyEntry())
+                callback(dummySurvey)
+                return
+            }
             survey.id = id
             callback(survey)
         })

@@ -15,7 +15,7 @@ export class SurveyEntry {
     graphType!: GraphType
     surveyChoices!: SurveyChoices
     choices: SurveyChoice[] = []
-    surveyAnswers: SurveyAnswer[] = []
+    surveyAnswers?: {[key: string]: SurveyAnswer} // Use firebase generated Id map instead of arrays.. https://stackoverflow.com/a/44264669/8524651
 
     constructor() {
         this.id = 'dummy-' + new Date().getTime()

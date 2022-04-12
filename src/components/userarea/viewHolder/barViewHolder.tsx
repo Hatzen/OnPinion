@@ -9,7 +9,12 @@ export class BarHolder {
 
     constructor (surveyEntry: SurveyEntry) {
         this.keyValueMap = {}
-        surveyEntry.surveyAnswers.forEach(answer => {
+        if (surveyEntry.surveyAnswers == null) {
+            return
+        }
+        // debugger
+        // TODO: surveyEntry.surveyAnswers? we could work around optional with Partitial constructor within FirebaseService to init Arrays..
+        Object.values(surveyEntry.surveyAnswers!).forEach(answer => {
             const key = surveyEntry.choices.find(choice => choice.id === answer.choice)!.text
             this.keyValueMap[key] = (this.keyValueMap[key] || 0) + 1
         })
@@ -26,7 +31,7 @@ export class BarHolder {
         return <ResponsiveBar
             data={this.barData}
             keys={Object.keys(this.keyValueMap)}
-            indexBy="answer"
+            indexBy="Wahl"
             margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
             padding={0.3}
             valueScale={{ type: 'linear' }}
@@ -55,7 +60,7 @@ export class BarHolder {
                 tickSize: 5,
                 tickPadding: 5,
                 tickRotation: 0,
-                legend: 'count',
+                legend: 'Anzahl',
                 legendPosition: 'middle',
                 legendOffset: -40
             }}

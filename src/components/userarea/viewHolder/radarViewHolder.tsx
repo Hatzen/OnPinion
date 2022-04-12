@@ -1,49 +1,40 @@
 
 import { ResponsiveRadar } from '@nivo/radar'
 import * as React from 'react'
+import { SurveyEntry } from '../../../model/surveyEntry'
 
 export class RadarHolder {
+    private readonly indexBy = 'choice'
+    keyValueMap: {[key: string]: number} = {}
 
-    get data(): any[] {
-        return [
-            {
-                'taste': 'fruity',
-                'chardonay': 74,
-                'carmenere': 22,
-                'syrah': 58
-            },
-            {
-                'taste': 'bitter',
-                'chardonay': 41,
-                'carmenere': 23,
-                'syrah': 86
-            },
-            {
-                'taste': 'heavy',
-                'chardonay': 27,
-                'carmenere': 71,
-                'syrah': 95
-            },
-            {
-                'taste': 'strong',
-                'chardonay': 63,
-                'carmenere': 110,
-                'syrah': 25
-            },
-            {
-                'taste': 'sunny',
-                'chardonay': 72,
-                'carmenere': 70,
-                'syrah': 51
+    constructor (surveyEntry: SurveyEntry) {
+        this.keyValueMap = {}
+        if (surveyEntry.surveyAnswers == null) {
+            return
+        }
+        // debugger
+        // TODO: surveyEntry.surveyAnswers? we could work around optional with Partitial constructor within FirebaseService to init Arrays..
+        Object.values(surveyEntry.surveyAnswers!).forEach(answer => {
+            const key = surveyEntry.choices.find(choice => choice.id === answer.choice)!.text
+            this.keyValueMap[key] = (this.keyValueMap[key] || 0) + 1
+        })
+    }
+
+    get data(): Array<{choice: string, Votes: number}> {
+        return Object.entries(this.keyValueMap).map(([choiceText, choiceCount]) => {
+            return {
+                'choice': choiceText,
+                'Votes': choiceCount
             }
-        ]
+        }
+        )
     }
 
     get radar(): JSX.Element {
         return (<ResponsiveRadar
             data={this.data}
-            keys={[ 'chardonay', 'carmenere', 'syrah' ]}
-            indexBy='taste'
+            keys={['Votes']}
+            indexBy={this.indexBy}
             valueFormat='>-.2f'
             margin={{ top: 70, right: 80, bottom: 40, left: 80 }}
             borderColor={{ from: 'color' }}

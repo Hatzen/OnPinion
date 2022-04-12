@@ -2,6 +2,8 @@ import { Button, Typography } from '@mui/material'
 import { inject, observer } from 'mobx-react'
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import { SurveyAnswer } from '../../model/surveyAnswer'
+import { SurveyChoices } from '../../model/surveyChoices'
 import { SurveyEntry } from '../../model/surveyEntry'
 import { injectClause, StoreProps } from '../../stores/storeHelper'
 import { NavigationProps } from '../app'
@@ -19,6 +21,7 @@ export const UserArea = (props: NavigationProps & StoreProps): JSX.Element => {
         props.uiStore!.watchSurvey(surveyId!)
     }, []) // empty array so it is called only once.
     const survey = props.uiStore!.currentSurvey
+    let currentAnswer: Array<SurveyAnswer> = []
 
     const [surveyEntryIndex, setSurveyEntryIndex] = React.useState(0)
     const [surveyEntry, setSurveyEntry] = React.useState(new SurveyEntry())
@@ -30,25 +33,44 @@ export const UserArea = (props: NavigationProps & StoreProps): JSX.Element => {
     const [showResult, setShowResult] = React.useState(false)
 
     const clickNextEntry = (event: any): void => {
+        currentAnswer.forEach(answer =>
+            props.uiStore!.addAnswer(surveyEntry, answer)
+        )
         setSurveyEntryIndex(surveyEntryIndex + 1)
-        if (surveyEntryIndex >= survey.surveyEntries.length) {
+        if (surveyEntryIndex >= Object.keys(survey.surveyEntries).length) {
             return
         }
         setSurveyEntry(survey.surveyEntries[surveyEntryIndex])
+        currentAnswer = []
     }
     
     const clickShowResult = (event: any): void => {
         setShowResult(!showResult)
     }
+
+    const setAnswer = (surveyAnswer: SurveyAnswer): void => {
+        if (surveyEntry.surveyChoices === SurveyChoices.SINGLESELECT) {
+            currentAnswer = [surveyAnswer]
+        } else if (surveyEntry.surveyChoices === SurveyChoices.MULTISELECT) {
+            currentAnswer.push(surveyAnswer)
+        }
+    }
     
-    if (surveyEntryIndex >= survey.surveyEntries.length || surveyEntry == null) {
+    if (surveyEntry == null) {
+        return (
+            <Typography style={{textAlign: 'center', verticalAlign: 'center', position: 'relative', top: '40%'}} gutterBottom variant="h3" component="div">
+                Daten werden geladen..
+            </Typography>
+        )
+    }
+    if (surveyEntryIndex >= Object.keys(survey.surveyEntries).length) {
         return (
             <Typography style={{textAlign: 'center', verticalAlign: 'center', position: 'relative', top: '40%'}} gutterBottom variant="h3" component="div">
                 Vielen Dank für die Teilnahme.
             </Typography>
         )
     }
-    let content = <ParticipationInputView surveyEntry={surveyEntry}/>
+    let content = <ParticipationInputView setAnswer={setAnswer} surveyEntry={surveyEntry}/>
     if (showResult) {
         content = <ResultView surveyEntry={surveyEntry}/>
     }

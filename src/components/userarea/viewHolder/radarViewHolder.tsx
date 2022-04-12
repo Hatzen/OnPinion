@@ -12,8 +12,7 @@ export class RadarHolder {
         if (surveyEntry.surveyAnswers == null) {
             return
         }
-        // debugger
-        // TODO: surveyEntry.surveyAnswers? we could work around optional with Partitial constructor within FirebaseService to init Arrays..
+        // TODO: surveyEntry.surveyAnswers? (?=Optional..) we could work around optional with Partitial constructor within FirebaseService to init Arrays..
         Object.values(surveyEntry.surveyAnswers!).forEach(answer => {
             const key = surveyEntry.choices.find(choice => choice.id === answer.choice)!.text
             this.keyValueMap[key] = (this.keyValueMap[key] || 0) + 1

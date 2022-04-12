@@ -12,7 +12,6 @@ export class BarHolder {
         if (surveyEntry.surveyAnswers == null) {
             return
         }
-        // debugger
         // TODO: surveyEntry.surveyAnswers? we could work around optional with Partitial constructor within FirebaseService to init Arrays..
         Object.values(surveyEntry.surveyAnswers!).forEach(answer => {
             const key = surveyEntry.choices.find(choice => choice.id === answer.choice)!.text

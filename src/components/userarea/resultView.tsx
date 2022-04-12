@@ -15,10 +15,10 @@ export const ResultView = (props: SurveyEntryBasedComponentProps): JSX.Element =
         CurrentComponent = new BarHolder(surveyEntry).bar
         break
     case GraphType.RADAR:
-        CurrentComponent = new RadarHolder().radar
+        CurrentComponent = new RadarHolder(surveyEntry).radar
         break
     case GraphType.TEXT:
-        CurrentComponent = new RadarHolder().radar
+        CurrentComponent = new RadarHolder(surveyEntry).radar
         break
     }
 

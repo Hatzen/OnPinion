@@ -1,5 +1,4 @@
 import { Button, Typography } from '@mui/material'
-import { observe } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import React from 'react'
 import { useParams } from 'react-router-dom'
@@ -19,19 +18,13 @@ export const UserArea = (props: NavigationProps & StoreProps): JSX.Element => {
     React.useEffect(() => {
         props.uiStore!.watchSurvey(surveyId!)
     }, []) // empty array so it is called only once.
-    // TODO: As it is from the store we usually wont need the useStat hook, do we?
-    // const [survey, setSurvey] = React.useState(props.uiStore!.currentSurvey)
     const survey = props.uiStore!.currentSurvey
 
     const [surveyEntryIndex, setSurveyEntryIndex] = React.useState(0)
     const [surveyEntry, setSurveyEntry] = React.useState(new SurveyEntry())
     
     React.useEffect(() => {
-        setSurveyEntry(props.uiStore!.currentSurvey.surveyEntries[surveyEntryIndex])
-
-        // observe(survey, (change) => {
-        //    setSurvey(change.object)
-        //})
+        setSurveyEntry(survey.surveyEntries[surveyEntryIndex])
     })
 
     const [showResult, setShowResult] = React.useState(false)

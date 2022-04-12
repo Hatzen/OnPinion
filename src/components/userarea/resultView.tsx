@@ -5,7 +5,9 @@ import { BarHolder } from './viewHolder/barViewHolder'
 import { RadarHolder } from './viewHolder/radarViewHolder'
 
 export const ResultView = (props: SurveyEntryBasedComponentProps): JSX.Element => {
-    const [surveyEntry] = React.useState(props.surveyEntry)
+    const [surveyEntry, setSurveyEntry] = React.useState(props.surveyEntry)
+    // Keep prop synced. https://stackoverflow.com/a/54568167/8524651
+    React.useEffect(() => { setSurveyEntry(props.surveyEntry) }, [props.surveyEntry])
 
     let CurrentComponent
     switch (surveyEntry.graphType) {

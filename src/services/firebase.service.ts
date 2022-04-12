@@ -1,4 +1,4 @@
-import { SurveyEntry } from './../model/surveyEntry';
+import { SurveyEntry } from './../model/surveyEntry'
 import { SurveyAnswer } from './../model/surveyAnswer'
 import { Survey } from './../model/survey'
 // import firebaseui from 'firebaseui'

@@ -1,3 +1,4 @@
+import { SurveyEntry } from './../model/surveyEntry';
 import { SurveyAnswer } from './../model/surveyAnswer'
 import { Survey } from './../model/survey'
 // import firebaseui from 'firebaseui'
@@ -129,6 +130,14 @@ export class FirebaseService {
     watchForSurvey(id: string, callback: (survey: Survey) => void): void {
         onValue(this.getRefForId(id), (snapshot) => {
             const survey = snapshot.val() as Survey
+            // User entered wrong Id.
+            if (survey == null) {
+                const dummySurvey = new Survey()
+                dummySurvey.name = 'Ungültige UmfrageId eingegeben'
+                dummySurvey.surveyEntries.push(new SurveyEntry())
+                callback(dummySurvey)
+                return
+            }
             survey.id = id
             callback(survey)
         })

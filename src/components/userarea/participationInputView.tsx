@@ -25,7 +25,7 @@ export const ParticipationInputView = (props: SurveyEntryBasedComponentProps & S
     return (
         <div style={{display: 'block'}}>
             {
-                surveyEntry.choices.map(choice => {
+                surveyEntry.choices?.map(choice => {
                     const key = 'input-field-' + surveyEntry.choices.indexOf(choice)
                     if (surveyEntry.surveyChoices === SurveyChoices.SINGLESELECT) {
                         return <FormControlLabel key={key} onChange={handleChange} value={choice.id} control={<Checkbox />} label={choice.text} />

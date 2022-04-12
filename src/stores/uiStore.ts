@@ -31,11 +31,19 @@ export class UiStore {
     }
 
     setSurvey(survey: Survey): void {
+        // TODO: We loose the observable reference here, dont we?
         this.currentSurvey = survey
     }
     
     addAnswer(surveyEntry: SurveyEntry, surveyAnswer: SurveyAnswer): void {
-        const surveyEntryId = this.currentSurvey.surveyEntries.indexOf(surveyEntry)!.toString()
+        // debugger
+        let surveyEntryId
+        if (this.currentSurvey.surveyEntries.length != null) {
+            surveyEntryId = this.currentSurvey.surveyEntries.indexOf(surveyEntry)!.toString()
+        } else {
+            // surveyEntryId = Object.values(this.currentSurvey.surveyEntries).find(entry => entry === surveyEntry)!.toString()
+            surveyEntryId = Object.values(this.currentSurvey.surveyEntries).indexOf(surveyEntry)!.toString()
+        }
         this.firebaseService.addSurveyAnswer(this.currentSurvey.id!, surveyEntryId, surveyAnswer)
     }
 }

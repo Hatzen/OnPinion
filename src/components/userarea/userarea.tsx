@@ -1,4 +1,5 @@
 import { Button, Typography } from '@mui/material'
+import { observe } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import React from 'react'
 import { useParams } from 'react-router-dom'
@@ -18,18 +19,25 @@ export const UserArea = (props: NavigationProps & StoreProps): JSX.Element => {
     React.useEffect(() => {
         props.uiStore!.watchSurvey(surveyId!)
     }, []) // empty array so it is called only once.
+    // TODO: As it is from the store we usually wont need the useStat hook, do we?
+    // const [survey, setSurvey] = React.useState(props.uiStore!.currentSurvey)
     const survey = props.uiStore!.currentSurvey
 
-    let surveyEntryIndex = 0
-    const [surveyEntry, setSurveyEntry] = React.useState(survey.surveyEntries[surveyEntryIndex])
-    if (surveyEntry == null) {
-        setSurveyEntry(new SurveyEntry())
-    }
+    const [surveyEntryIndex, setSurveyEntryIndex] = React.useState(0)
+    const [surveyEntry, setSurveyEntry] = React.useState(new SurveyEntry())
+    
+    React.useEffect(() => {
+        setSurveyEntry(props.uiStore!.currentSurvey.surveyEntries[surveyEntryIndex])
+
+        // observe(survey, (change) => {
+        //    setSurvey(change.object)
+        //})
+    })
+
     const [showResult, setShowResult] = React.useState(false)
 
     const clickNextEntry = (event: any): void => {
-        // debugger
-        surveyEntryIndex++
+        setSurveyEntryIndex(surveyEntryIndex + 1)
         if (surveyEntryIndex >= survey.surveyEntries.length) {
             return
         }
@@ -40,11 +48,12 @@ export const UserArea = (props: NavigationProps & StoreProps): JSX.Element => {
         setShowResult(!showResult)
     }
     
-    if (surveyEntryIndex >= survey.surveyEntries.length) {
+    if (surveyEntryIndex >= survey.surveyEntries.length || surveyEntry == null) {
         return (
             <Typography style={{textAlign: 'center', verticalAlign: 'center', position: 'relative', top: '40%'}} gutterBottom variant="h3" component="div">
                 Vielen Dank für die Teilnahme.
-            </Typography>)
+            </Typography>
+        )
     }
     let content = <ParticipationInputView surveyEntry={surveyEntry}/>
     if (showResult) {

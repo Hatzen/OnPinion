@@ -4,8 +4,8 @@ import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import { CardActionArea } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Survey } from '@model/survey'
-import { NavigationProps } from '@components/appRouter'
+import { Survey } from 'model/survey'
+import { NavigationProps } from 'components/appRouter'
 
 class SurveyCardProps {
     entry!: Survey

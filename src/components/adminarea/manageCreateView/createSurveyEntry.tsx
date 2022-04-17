@@ -1,8 +1,8 @@
 import { Button, FormControl, Input, InputLabel, List, ListItem, ListItemText, MenuItem, Select } from '@mui/material'
 import * as React from 'react'
-import { GraphType } from '@model/graphType'
-import { SurveyChoices } from '@model/surveyChoices'
-import { SurveyChoice, SurveyEntry } from '@model/surveyEntry'
+import { GraphType } from 'model/graphType'
+import { SurveyChoices } from 'model/surveyChoices'
+import { SurveyChoice, SurveyEntry } from 'model/surveyEntry'
 import CreateSurveyChoice from './createChoice'
 
 interface CreateSurveyEntryProps {

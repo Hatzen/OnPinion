@@ -1,5 +1,5 @@
-import { SurveyAnswer } from '@model/surveyAnswer'
-import { Survey } from '@model/survey'
+import { SurveyAnswer } from 'model/surveyAnswer'
+import { Survey } from 'model/survey'
 import { FirebaseApp, initializeApp } from 'firebase/app'
 import { getAnalytics, Analytics } from 'firebase/analytics'
 import { getAuth, onAuthStateChanged, signInAnonymously } from 'firebase/auth'

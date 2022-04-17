@@ -4,7 +4,7 @@ import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import { CardActionArea } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { NavigationProps } from '@components/appRouter'
+import { NavigationProps } from 'components/appRouter'
 
 export const AddCard = (props: NavigationProps): JSX.Element => {
     const clickEvent = (): void => {

@@ -2,7 +2,7 @@ import React from 'react'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 import { inject, observer } from 'mobx-react'
-import { injectClause, StoreProps } from '@stores/storeHelper'
+import { injectClause, StoreProps } from 'stores/storeHelper'
 
 export const SignInScreen = (props: StoreProps): JSX.Element => {
     // Configure FirebaseUI.

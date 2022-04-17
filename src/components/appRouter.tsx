@@ -1,11 +1,12 @@
-import AdminArea from './adminarea/adminarea'
-import UserArea from './userarea/userarea'
-import ManageCreateView from './adminarea/manageCreateView/manageCreateView'
-import ManageShowView from './adminarea/manageShowView'
-import StartPage from './startpage'
-import React from 'react'
+import React, { Suspense } from 'react'
 import { NavigateFunction, Route, Routes, useNavigate } from 'react-router-dom'
 import { ApplicationBar } from './appBar'
+import StartPage from './startpage'
+
+const LazyUserArea = React.lazy(() => import('./userarea/userarea'))
+const LazyAdminArea = React.lazy(() => import('./adminarea/adminarea'))
+const LazyManageCreateView = React.lazy(() => import('./adminarea/manageCreateView/manageCreateView'))
+const LazyManageShowView = React.lazy(() => import('./adminarea/manageShowView'))
 
 export const withNavigation = (Component: any) => {
     // eslint-disable-next-line react/display-name
@@ -20,22 +21,23 @@ export const AppRouter = (): JSX.Element => {
     return (
         <div>
             <ApplicationBar></ApplicationBar>
-            <Routes>
-                <Route path="/" element={
-                    <div>
-                        <StartPage navigate={useNavigate()} />
-                    </div>}>
+            <Suspense fallback={<div>Loading..</div>}>
+                <Routes>
+                    <Route path="/" element={
+                        <div>
+                            <StartPage navigate={useNavigate()} />
+                        </div>} />
                     [Admin]
-                    <Route path="/manage" element={<AdminArea navigate={useNavigate()}></AdminArea>} />
-                    <Route path="/manage/create" element={<ManageCreateView></ManageCreateView>} />
-                    <Route path="/manage/result/:surveyId" element={<ManageShowView></ManageShowView>} />
+                    <Route path="/manage" element={<LazyAdminArea navigate={useNavigate()}></LazyAdminArea>} />
+                    <Route path="/manage/create" element={<LazyManageCreateView></LazyManageCreateView>} />
+                    <Route path="/manage/result/:surveyId" element={<LazyManageShowView></LazyManageShowView>} />
                     [User]
-                    <Route path="/result/:surveyId" element={<AdminArea navigate={useNavigate()}></AdminArea>} />
-                    <Route path="/participate/:surveyId" element={<UserArea navigate={useNavigate()}></UserArea>} />
-                </Route>
-                [Error 404]
-                <Route path="*" element={<StartPage navigate={useNavigate()}></StartPage>} />
-            </Routes>
+                    <Route path="/result/:surveyId" element={<LazyUserArea navigate={useNavigate()}></LazyUserArea>} />
+                    <Route path="/participate/:surveyId" element={<LazyUserArea navigate={useNavigate()}></LazyUserArea>} />
+                    [Error 404]
+                    <Route path="*" element={<StartPage navigate={useNavigate()}></StartPage>} />
+                </Routes>
+            </Suspense>
         </div>
     )
 }

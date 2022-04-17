@@ -1,7 +1,7 @@
-import { SurveyAnswer } from './../model/surveyAnswer'
-import { SurveyEntry } from './../model/surveyEntry'
-import { Survey } from './../model/survey'
-import { FirebaseService } from '../services/firebase/firebase.service'
+import { SurveyAnswer } from 'model/surveyAnswer'
+import { SurveyEntry } from 'model/surveyEntry'
+import { Survey } from 'model/survey'
+import { FirebaseService } from 'services/firebase/firebase.service'
 import { makeAutoObservable } from 'mobx'
 
 export class UiStore {

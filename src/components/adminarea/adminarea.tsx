@@ -1,12 +1,12 @@
 import { Grid } from '@mui/material'
 import React from 'react'
-import { Survey } from '@model/survey'
+import { Survey } from 'model/survey'
 import AddCard from './addCard'
 import SurveyCard from './surveyCard'
-import { injectClause, StoreProps } from '@stores/storeHelper'
+import { injectClause, StoreProps } from 'stores/storeHelper'
 import { inject, observer } from 'mobx-react'
 import SignInScreen from '@services/firebase/signInScreen'
-import { NavigationProps } from '@components/appRouter'
+import { NavigationProps } from 'components/appRouter'
 
 const AdminArea = (props: NavigationProps & StoreProps): JSX.Element => {
     const loggedIn = false

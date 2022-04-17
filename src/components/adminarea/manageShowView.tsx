@@ -3,7 +3,7 @@ import { Checkbox, FormControlLabel, FormGroup} from '@mui/material'
 import { useParams } from 'react-router-dom'
 import moment from 'moment'
 import { inject, observer } from 'mobx-react'
-import { injectClause, StoreProps } from '@stores/storeHelper'
+import { injectClause, StoreProps } from 'stores/storeHelper'
 
 export const ManageShowView = (props: StoreProps): JSX.Element => {
     const { surveyId } = useParams()

@@ -1,6 +1,6 @@
 import { Button, FormControl, Input, InputLabel, ListItem } from '@mui/material'
 import * as React from 'react'
-import { SurveyChoice } from '@model/surveyEntry'
+import { SurveyChoice } from 'model/surveyEntry'
 
 interface CreateSurveyChoiceProps {
     surveyChoice: SurveyChoice

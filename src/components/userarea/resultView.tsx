@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { GraphType } from '@model/graphType'
+import { GraphType } from 'model/graphType'
 import { SurveyEntryBasedComponentProps } from './userarea'
 import { BarHolder } from './viewHolder/barViewHolder'
 import { RadarHolder } from './viewHolder/radarViewHolder'

@@ -1,15 +1,15 @@
 import { Grid } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import { Survey } from 'model/survey'
 import AddCard from './addCard'
 import SurveyCard from './surveyCard'
 import { injectClause, StoreProps } from 'stores/storeHelper'
 import { inject, observer } from 'mobx-react'
-import SignInScreen from '@services/firebase/signInScreen'
+import SignInScreen from 'services/firebase/signInScreen'
 import { NavigationProps } from 'components/appRouter'
 
 const AdminArea = (props: NavigationProps & StoreProps): JSX.Element => {
-    const loggedIn = false
+    const [loggedIn] = React.useState(props.uiStore!.loggedInWithEmail)
     if (!loggedIn) {
         return (<SignInScreen></SignInScreen>)
     }

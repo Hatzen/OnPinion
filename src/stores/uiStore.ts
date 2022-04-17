@@ -16,7 +16,10 @@ export class UiStore {
     constructor() {
         this.firebaseService = new FirebaseService()
         this.firebaseService.initFirebase()
-        this.firebaseService.loginAndGetUserId(userId => this.userId = userId)
+        this.firebaseService.loginAndGetUserId((userId, known) => {
+            this.userId = userId
+            this.loggedInWithEmail = known
+        })
         makeAutoObservable(this)
     }
 

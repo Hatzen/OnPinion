@@ -111,7 +111,7 @@ const ResultView = (props) => {
             CurrentComponent = new _viewHolder_textViewHolder__WEBPACK_IMPORTED_MODULE_4__.TextViewHolder(surveyEntry).cards;
             break;
     }
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { style: { width: '900px', minHeight: '600px', position: 'absolute', top: '10%', left: 'calc(50% - 450px)', right: '50%' } },
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { style: { width: '900px', minHeight: '600px' } },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { style: { height: '600px' } }, CurrentComponent)));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ResultView);

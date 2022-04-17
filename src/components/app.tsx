@@ -1,50 +1,36 @@
 import React from 'react'
 import { Provider } from 'mobx-react'
-import UiStore from '../stores/uiStore'
-import { StoreProps } from '../stores/storeHelper'
-import StartPage from './startpage'
-import '../styles/app.css'
-import AdminArea from './adminarea/adminarea'
-import { NavigateFunction, Route, Routes, useNavigate } from 'react-router-dom'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUserCheck, faAdd } from '@fortawesome/free-solid-svg-icons'
-import UserArea from './userarea/userarea'
-import ManageCreateView from './adminarea/manageCreateView/manageCreateView'
-import ManageShowView from './adminarea/manageShowView'
-
-// TODO: Split up file: Router, Stores, Icons, Helper
-
-library.add(faUserCheck, faAdd)
-
-export const withNavigation = (Component: any) => {
-    // eslint-disable-next-line react/display-name
-    return (props: NavigationProps) => <Component {...props} navigate={useNavigate()} />
-}
-
-export interface NavigationProps {
-    navigate: NavigateFunction
-}
+import UiStore from 'stores/uiStore'
+import { StoreProps } from 'stores/storeHelper'
+import 'styles/app.css'
+import { createTheme , ThemeProvider } from '@mui/material'
+import { BrowserRouter } from 'react-router-dom'
+import AppRouter from './appRouter'
+import { initIcons } from 'services/fontawesome/fontawesome.service'
 
 export const App = (): JSX.Element => {
-
+    const theme = createTheme ({
+        palette: {
+            primary: {
+                main: '#004A7F', // Blue
+            },
+            secondary: {
+                main: '#E3E6E8', // Gray
+            }
+        }
+    })
     const stores: StoreProps = {
         uiStore: UiStore
     }
+    initIcons()
     return (
-        <Provider {...stores}>
-            <Routes>
-                <Route path="/" element={<StartPage navigate={useNavigate()} />} />
-                [Admin]
-                <Route path="/manage" element={<AdminArea navigate={useNavigate()}></AdminArea>} />
-                <Route path="/manage/create" element={<ManageCreateView></ManageCreateView>} />
-                <Route path="/manage/result/:surveyId" element={<ManageShowView></ManageShowView>} />
-                [User]
-                <Route path="/result/:surveyId" element={<AdminArea navigate={useNavigate()}></AdminArea>} />
-                <Route path="/participate/:surveyId" element={<UserArea navigate={useNavigate()}></UserArea>} />
-                [Error 404]
-                <Route path="*" element={<StartPage navigate={useNavigate()}></StartPage>} />
-            </Routes>
-        </Provider>
+        <ThemeProvider theme={theme}>
+            <BrowserRouter>
+                <Provider {...stores}>
+                    <AppRouter />
+                </Provider>
+            </BrowserRouter>
+        </ThemeProvider>
     )
 }
 

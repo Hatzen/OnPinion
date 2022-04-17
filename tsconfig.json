@@ -9,7 +9,7 @@
         "esnext"
       ],
       "strict": true,
-      "sourceMap": true,
+      "sourceMap": false, // TODO: Sourcemaps are HUGE.. Only build in dev mode.
       "target": "esnext",
       // Avoid relative urls.
       "baseUrl": "./src",

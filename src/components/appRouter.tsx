@@ -19,8 +19,12 @@ export interface NavigationProps {
 export const AppRouter = (): JSX.Element => {
     return (
         <div>
+            <ApplicationBar></ApplicationBar>
             <Routes>
-                <Route path="/" element={<ApplicationBar></ApplicationBar>}>
+                <Route path="/" element={
+                    <div>
+                        <StartPage navigate={useNavigate()} />
+                    </div>}>
                     [Admin]
                     <Route path="/manage" element={<AdminArea navigate={useNavigate()}></AdminArea>} />
                     <Route path="/manage/create" element={<ManageCreateView></ManageCreateView>} />
@@ -28,7 +32,6 @@ export const AppRouter = (): JSX.Element => {
                     [User]
                     <Route path="/result/:surveyId" element={<AdminArea navigate={useNavigate()}></AdminArea>} />
                     <Route path="/participate/:surveyId" element={<UserArea navigate={useNavigate()}></UserArea>} />
-                    <Route path="/" element={<StartPage navigate={useNavigate()} />} />
                 </Route>
                 [Error 404]
                 <Route path="*" element={<StartPage navigate={useNavigate()}></StartPage>} />

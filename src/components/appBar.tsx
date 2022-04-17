@@ -5,6 +5,7 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export const ApplicationBar = (): JSX.Element => {
     return (
@@ -18,7 +19,7 @@ export const ApplicationBar = (): JSX.Element => {
                         aria-label="menu"
                         sx={{ mr: 2 }}
                     >
-
+                        <FontAwesomeIcon icon={'add'} />
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         OnPinion

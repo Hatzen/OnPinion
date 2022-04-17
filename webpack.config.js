@@ -3,7 +3,7 @@
 // const dev = process.env.NODE_ENV === 'dev';
 // const prod = !dev; // Be more restrictive for dev environment (as firebase buildscripts might not set properly.)
 
-const prod = process.env.NODE_ENV === 'production';
+const prod = false; // process.env.NODE_ENV === 'production'; // TODO: There is still a map file..
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -16,16 +16,17 @@ module.exports = {
   output: {
     path: __dirname + '/dist/',
   },
+  resolve: {
+    // https://www.npmjs.com/package/tsconfig-paths-webpack-plugin
+    plugins: [new TsconfigPathsPlugin({})],
+  },
   module: {
     rules: [
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
         resolve: {
-          extensions: ['.ts', '.tsx', '.js', '.json'],
-          // Avoid relative imports like in tsconfig.
-          // https://www.npmjs.com/package/tsconfig-paths-webpack-plugin
-          plugins: [new TsconfigPathsPlugin({})],
+          extensions: ['.ts', '.tsx', '.js', '.json']
         },
         use: 'ts-loader',
       },

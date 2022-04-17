@@ -3,6 +3,7 @@ import { NavigateFunction, Route, Routes, useNavigate } from 'react-router-dom'
 import { ApplicationBar } from './appBar'
 import StartPage from './startpage'
 
+const LazyResultArea = React.lazy(() => import('./userarea/resultArea'))
 const LazyUserArea = React.lazy(() => import('./userarea/userarea'))
 const LazyAdminArea = React.lazy(() => import('./adminarea/adminarea'))
 const LazyManageCreateView = React.lazy(() => import('./adminarea/manageCreateView/manageCreateView'))
@@ -27,9 +28,9 @@ export const AppRouter = (): JSX.Element => {
                     [Admin]
                     <Route path="/manage" element={<LazyAdminArea navigate={useNavigate()}></LazyAdminArea>} />
                     <Route path="/manage/create" element={<LazyManageCreateView></LazyManageCreateView>} />
-                    <Route path="/manage/result/:surveyId" element={<LazyManageShowView></LazyManageShowView>} />
+                    <Route path="/manage/result/:surveyId" element={<LazyManageShowView navigate={useNavigate()}></LazyManageShowView>} />
                     [User]
-                    <Route path="/result/:surveyId" element={<LazyUserArea navigate={useNavigate()}></LazyUserArea>} />
+                    <Route path="/result/:surveyId" element={<LazyResultArea navigate={useNavigate()}></LazyResultArea>} />
                     <Route path="/participate/:surveyId" element={<LazyUserArea navigate={useNavigate()}></LazyUserArea>} />
                     [Error 404]
                     <Route path="*" element={<StartPage navigate={useNavigate()}></StartPage>} />

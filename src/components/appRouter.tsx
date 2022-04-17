@@ -20,13 +20,10 @@ export interface NavigationProps {
 export const AppRouter = (): JSX.Element => {
     return (
         <div>
-            <ApplicationBar></ApplicationBar>
-            <Suspense fallback={<div>Loading..</div>}>
+            <ApplicationBar navigate={useNavigate()}></ApplicationBar>
+            <Suspense fallback={<div className='lds-ring'><div></div><div></div><div></div><div></div></div>}>
                 <Routes>
-                    <Route path="/" element={
-                        <div>
-                            <StartPage navigate={useNavigate()} />
-                        </div>} />
+                    <Route path="/" element={<StartPage navigate={useNavigate()} />} />
                     [Admin]
                     <Route path="/manage" element={<LazyAdminArea navigate={useNavigate()}></LazyAdminArea>} />
                     <Route path="/manage/create" element={<LazyManageCreateView></LazyManageCreateView>} />

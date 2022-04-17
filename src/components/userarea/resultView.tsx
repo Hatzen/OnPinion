@@ -24,7 +24,7 @@ export const ResultView = (props: SurveyEntryBasedComponentProps): JSX.Element =
     }
 
     return (
-        <div style={{width: '900px', minHeight: '600px', position: 'absolute', top: '10%', left: 'calc(50% - 450px)', right: '50%' }}>
+        <div style={{width: '900px', minHeight: '600px'}}>
             <div style={{height: '600px'}}>
                 {CurrentComponent}
             </div>

@@ -25,7 +25,7 @@ export class UiStore {
     setLogin(userId: string, known: boolean): void {
         this.userId = userId
         this.loggedInWithEmail = known
-        debugger
+        // debugger
     }
 
     loadSurvey(id: string): void {

@@ -66,9 +66,17 @@ export const UserArea = (props: NavigationProps & StoreProps): JSX.Element => {
     const surveyFinished = surveyEntryIndex >= survey.surveyEntries.length - 1
     if (surveyFinished) {
         return (
-            <Typography style={{textAlign: 'center', verticalAlign: 'center', position: 'relative', top: '40%'}} gutterBottom variant="h3" component="div">
-                Vielen Dank für die Teilnahme.
-            </Typography>
+            <div style={{textAlign: 'center', verticalAlign: 'center', position: 'relative', top: '40%'}} >
+                <Typography gutterBottom variant="h3" component="div">
+                                Vielen Dank für die Teilnahme.
+                </Typography>
+                <Button
+                    style={{float: 'right'}}
+                    onClick={() => props.navigate('/result/' + surveyId)}
+                    variant="contained">
+                        Ergebnisse Anzeigen
+                </Button>
+            </div>
         )
     }
     let content = <ParticipationInputView setAnswer={setAnswer} surveyEntry={surveyEntry}/>

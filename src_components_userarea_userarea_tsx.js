@@ -188,7 +188,9 @@ const UserArea = (props) => {
     }
     const surveyFinished = surveyEntryIndex >= survey.surveyEntries.length - 1;
     if (surveyFinished) {
-        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], { style: { textAlign: 'center', verticalAlign: 'center', position: 'relative', top: '40%' }, gutterBottom: true, variant: "h3", component: "div" }, "Vielen Dank f\u00FCr die Teilnahme."));
+        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { style: { textAlign: 'center', verticalAlign: 'center', position: 'relative', top: '40%' } },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], { gutterBottom: true, variant: "h3", component: "div" }, "Vielen Dank f\u00FCr die Teilnahme."),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], { style: { float: 'right' }, onClick: () => props.navigate('/result/' + surveyId), variant: "contained" }, "Ergebnisse Anzeigen")));
     }
     let content = react__WEBPACK_IMPORTED_MODULE_0__.createElement(_participationInputView__WEBPACK_IMPORTED_MODULE_4__["default"], { setAnswer: setAnswer, surveyEntry: surveyEntry });
     if (showResult) {

@@ -1,11 +1,12 @@
 import * as React from 'react'
-import { Checkbox, FormControlLabel, FormGroup} from '@mui/material'
+import { Button, Checkbox, FormControlLabel, FormGroup} from '@mui/material'
 import { useParams } from 'react-router-dom'
 import moment from 'moment'
 import { inject, observer } from 'mobx-react'
 import { injectClause, StoreProps } from 'stores/storeHelper'
+import { NavigationProps } from 'components/appRouter'
 
-export const ManageShowView = (props: StoreProps): JSX.Element => {
+export const ManageShowView = (props: StoreProps & NavigationProps): JSX.Element => {
     const { surveyId } = useParams()
     
     React.useEffect(() => {
@@ -24,7 +25,13 @@ export const ManageShowView = (props: StoreProps): JSX.Element => {
                 Anzahl fragen: {survey.surveyEntries?.length} <br />
                 Erstellt am: {createdAtFormatted} <br />
                 <br /><br />
-                [// TODO: display questions etc.]
+                
+                <Button
+                    style={{float: 'right'}}
+                    onClick={() => props.navigate('/result/' + surveyId)}
+                    variant="contained">
+                        Ergebnisse Anzeigen
+                </Button>
 
 
                 <FormControlLabel disabled control={<Checkbox disabled/>} label="Umfrage schließen" />

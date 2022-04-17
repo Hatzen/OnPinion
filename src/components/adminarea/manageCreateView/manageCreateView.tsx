@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, Input, InputLabel, List, ListItem, ListItemText, Snackbar } from '@mui/material'
 import CreateSurveyEntry from './createSurveyEntry'
-import { SurveyEntry } from '../../../model/surveyEntry'
-import { Survey } from '../../../model/survey'
-import { injectClause, StoreProps } from '../../../stores/storeHelper'
+import { SurveyEntry } from '@model/surveyEntry'
+import { Survey } from '@model/survey'
+import { injectClause, StoreProps } from '@stores/storeHelper'
 import { inject, observer } from 'mobx-react'
 import { testData } from '../testData'
 
@@ -17,7 +17,7 @@ export const ManageCreateView = (props: StoreProps): JSX.Element => {
     survey.isClosed = false
     survey.createdAt = new Date().getTime()
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV === 'dev') {
         // TODO: Remove. Just for creating testdata faster. Currently values are not displayed, but created..
         React.useEffect(() => {
             setSurvey(testData)

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, TextField } from '@mui/material'
-import { NavigationProps } from './app'
+import { NavigationProps } from './appRouter'
 
 export const StartPage = (props: NavigationProps): JSX.Element => {
     const placeholder = 'z.B. xD3qf5'

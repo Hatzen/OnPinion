@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import { Survey } from 'model/survey'
 import AddCard from './addCard'
 import SurveyCard from './surveyCard'
@@ -9,12 +9,23 @@ import SignInScreen from 'services/firebase/signInScreen'
 import { NavigationProps } from 'components/appRouter'
 
 const AdminArea = (props: NavigationProps & StoreProps): JSX.Element => {
-    const [loggedIn] = React.useState(props.uiStore!.loggedInWithEmail)
+    // const [loggedIn, setLoggedIn] = React.useState(props.uiStore!.loggedInWithEmail)
+    /* const [loggedIn, setLoggedIn] = React.useState(props.uiStore!.loggedInWithEmail)
+    //observe(props.uiStore!.loggedInWithEmail, newValue => setLoggedIn(newValue as any))
+    console.log('Why is this called only once?')
+    useEffect(() => {
+        setLoggedIn(props.uiStore!.loggedInWithEmail)
+    })*/
+    debugger
+    const loggedIn = props.uiStore!.loggedInWithEmail
     if (!loggedIn) {
         return (<SignInScreen></SignInScreen>)
     }
 
-    const [surveys, setSurveys] = React.useState(new Array<Survey>())
+    let [surveys, setSurveys] = React.useState(new Array<Survey>())
+    useEffect(
+        () => { [surveys, setSurveys] = React.useState(new Array<Survey>()) }
+        , [])
     props.uiStore!.firebaseService.getSurveys().then(setSurveys)
 
     return (

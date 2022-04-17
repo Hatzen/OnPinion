@@ -14,7 +14,7 @@ export const SignInScreen = (): JSX.Element => {
         // Popup signin flow rather than redirect flow.
         signInFlow: 'popup',
         // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
-        signInSuccessUrl: '/manage',
+        // signInSuccessUrl: '/manage',
         signInOptions: [
             firebase.auth.EmailAuthProvider.PROVIDER_ID
         ],
@@ -22,11 +22,28 @@ export const SignInScreen = (): JSX.Element => {
         buttonColor: '#004A7F', // Same as apps theme blue.
         // autoUpgradeAnonymousUsers: true,
         immediateFederatedRedirect: true,
-        popupMode: true
+        popupMode: true,
+        callbacks: {
+            signInSuccessWithAuthResult: (authResult: any, redirectUrl?: string): boolean => {
+                console.log('test123')
+                return false
+            },
+            signInFailure: (error: firebaseui.auth.AuthUIError) => {
+                console.log('test123')
+            },
+            uiShown: (): void => {
+                console.log('test123')
+            }
+        }
     }
     return (
         <div>
-            <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+            <StyledFirebaseAuth
+                uiCallback={() => {
+                    console.log('success')
+                    return false}}
+                uiConfig={uiConfig}
+                firebaseAuth={firebase.auth()} />
         </div>
     )
 }

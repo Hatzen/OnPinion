@@ -14,13 +14,19 @@ export class UiStore {
     userId?: string
     
     constructor() {
-        this.firebaseService = new FirebaseService()
-        this.firebaseService.initFirebase()
-        this.firebaseService.loginAndGetUserId(userId => this.userId = userId)
         makeAutoObservable(this)
+        this.firebaseService = new FirebaseService()
+        this.firebaseService.initFirebase(this.setLogin.bind(this))
+        // this.firebaseService.loginAndGetUserId()
     }
 
     // Actions.
+
+    setLogin(userId: string, known: boolean): void {
+        this.userId = userId
+        this.loggedInWithEmail = known
+        // debugger
+    }
 
     loadSurvey(id: string): void {
         this.firebaseService.getSurveyWithId(id)

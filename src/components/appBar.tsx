@@ -28,7 +28,7 @@ export const ApplicationBar = (props: NavigationProps): JSX.Element => {
             <FontAwesomeIcon icon={'arrow-left'} />
         </IconButton>)
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1 }} style={{marginBottom: 100}}>
             <AppBar position="static">
                 <Toolbar>
                     {backButton}

@@ -56,7 +56,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _surveyCard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./surveyCard */ "./src/components/adminarea/surveyCard.tsx");
 /* harmony import */ var stores_storeHelper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! stores/storeHelper */ "./src/stores/storeHelper.ts");
 /* harmony import */ var mobx_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! mobx-react */ "./node_modules/mobx-react/dist/mobxreact.esm.js");
-/* harmony import */ var _services_firebase_signInScreen__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @services/firebase/signInScreen */ "./src/services/firebase/signInScreen.tsx");
+/* harmony import */ var services_firebase_signInScreen__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! services/firebase/signInScreen */ "./src/services/firebase/signInScreen.tsx");
 
 
 
@@ -65,11 +65,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const AdminArea = (props) => {
-    const loggedIn = false;
+    // TODO: We cannot use mobx hooks as it calls useEffects. We cannot use setState as the Store is not related to this component...
+    const [loggedIn, setLoggedIn] = react__WEBPACK_IMPORTED_MODULE_0__.useState(props.uiStore.loggedInWithEmail);
+    /* const [loggedIn, setLoggedIn] = React.useState(props.uiStore!.loggedInWithEmail)
+    //observe(props.uiStore!.loggedInWithEmail, newValue => setLoggedIn(newValue as any))
+    console.log('Why is this called only once?')
+    useEffect(() => {
+        setLoggedIn(props.uiStore!.loggedInWithEmail)
+    })*/
     if (!loggedIn) {
-        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_services_firebase_signInScreen__WEBPACK_IMPORTED_MODULE_4__["default"], null));
+        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(services_firebase_signInScreen__WEBPACK_IMPORTED_MODULE_4__["default"], null));
     }
-    const [surveys, setSurveys] = react__WEBPACK_IMPORTED_MODULE_0__.useState(new Array());
+    let [surveys, setSurveys] = react__WEBPACK_IMPORTED_MODULE_0__.useState(new Array());
     props.uiStore.firebaseService.getSurveys().then(setSurveys);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null,
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], { container: true, spacing: { xs: 2, md: 2 }, columns: { xs: 4, sm: 8, md: 12 } },
@@ -140,28 +147,52 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var firebase_compat_app__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! firebase/compat/app */ "./node_modules/firebase/compat/app/dist/index.esm.js");
 /* harmony import */ var firebase_compat_auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! firebase/compat/auth */ "./node_modules/firebase/compat/auth/dist/index.esm.js");
-/* harmony import */ var mobx_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! mobx-react */ "./node_modules/mobx-react/dist/mobxreact.esm.js");
-/* harmony import */ var stores_storeHelper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! stores/storeHelper */ "./src/stores/storeHelper.ts");
+/* harmony import */ var react_firebaseui_StyledFirebaseAuth__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-firebaseui/StyledFirebaseAuth */ "./node_modules/react-firebaseui/StyledFirebaseAuth.js");
+/* harmony import */ var react_firebaseui_StyledFirebaseAuth__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_firebaseui_StyledFirebaseAuth__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _firebaseConfig__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./firebaseConfig */ "./src/services/firebase/firebaseConfig.ts");
+
+// import auth from 'firebase/auth' // TODO why do we need to use compat here?
 
 
 
 
-
-const SignInScreen = (props) => {
+// https://github.com/firebase/firebaseui-web#email-link-authentication
+const SignInScreen = () => {
+    firebase_compat_app__WEBPACK_IMPORTED_MODULE_1__["default"].initializeApp(_firebaseConfig__WEBPACK_IMPORTED_MODULE_4__.firebaseConfig);
     // Configure FirebaseUI.
     const uiConfig = {
         // Popup signin flow rather than redirect flow.
         signInFlow: 'popup',
         // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
-        signInSuccessUrl: '/signedIn',
+        // signInSuccessUrl: '/manage',
         signInOptions: [
             firebase_compat_app__WEBPACK_IMPORTED_MODULE_1__["default"].auth.EmailAuthProvider.PROVIDER_ID
         ],
+        // TODO: doesnt work, how to set TenantConfig?
+        buttonColor: '#004A7F',
+        // autoUpgradeAnonymousUsers: true,
+        immediateFederatedRedirect: true,
+        popupMode: true,
+        callbacks: {
+            signInSuccessWithAuthResult: (authResult, redirectUrl) => {
+                console.log('test123');
+                return false;
+            },
+            signInFailure: (error) => {
+                console.log('test123');
+            },
+            uiShown: () => {
+                console.log('test123');
+            }
+        }
     };
-    // <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
-    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null));
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_firebaseui_StyledFirebaseAuth__WEBPACK_IMPORTED_MODULE_3___default()), { uiCallback: () => {
+                console.log('success');
+                return false;
+            }, uiConfig: uiConfig, firebaseAuth: firebase_compat_app__WEBPACK_IMPORTED_MODULE_1__["default"].auth() })));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,mobx_react__WEBPACK_IMPORTED_MODULE_4__.inject)(...stores_storeHelper__WEBPACK_IMPORTED_MODULE_3__.injectClause)((0,mobx_react__WEBPACK_IMPORTED_MODULE_4__.observer)(SignInScreen)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SignInScreen);
 
 
 /***/ }),

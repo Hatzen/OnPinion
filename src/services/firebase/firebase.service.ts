@@ -16,18 +16,31 @@ export class FirebaseService {
     private database!: Database
     private readonly CUSTOMER = 'fourenergy'
     
-    
-    initFirebase (): void {
+    initFirebase (callback: (userId: string, admin: boolean) => void): void {
         this.app = initializeApp(firebaseConfig)
         this.analytics = getAnalytics(this.app)
         this.database = getDatabase(this.app)
+        
+        const auth = getAuth()
+        onAuthStateChanged(auth, (user) => {
+            console.log('User login state changed', user)
+            if (user) {
+                // User is signed in, see docs for a list of available properties
+                // https://firebase.google.com/docs/reference/js/firebase.User
+                const uid = user.uid
+                callback(uid, user.email != null)
+            } else {
+                // User is signed out
+            }
+        })
         console.log('Collecting data is ' + this.analytics.app.automaticDataCollectionEnabled)
     }
 
-    loginAndGetUserId(callback: (userId: string) => void): void {
+    loginAndGetUserId(): void {
         const auth = getAuth()
         signInAnonymously(auth)
             .then(() => {
+                console.log('Logged in user')
                 // Signed in..
                 // TODO: Do we need onAuthStateChanged or does this Promise doesnt pass the user as well?
             })
@@ -36,16 +49,6 @@ export class FirebaseService {
                 const errorMessage = error.message
                 console.error('Firebase anonymous login failed: ' + errorCode + '- ' + errorMessage)
             })
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                // User is signed in, see docs for a list of available properties
-                // https://firebase.google.com/docs/reference/js/firebase.User
-                const uid = user.uid
-                callback(uid)
-            } else {
-                // User is signed out
-            }
-        })
     }
 
     // https://firebase.google.com/docs/database/web/read-and-write

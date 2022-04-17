@@ -11,6 +11,22 @@
       "strict": true,
       "sourceMap": true,
       "target": "esnext",
+      // Avoid relative urls.
+      "baseUrl": "./src",
+      "paths": {
+          "@components/*": [
+              "./components/*"
+          ],
+          "@model/*": [
+              "./model/*"
+          ],
+          "@services/*": [
+              "./services/*"
+          ],
+          "@stores/*": [
+              "./stores/*"
+          ]
+      },
       // Additional:
       // Allow mobx-react decoraters.
       "experimentalDecorators": true,

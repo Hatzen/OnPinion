@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, TextField } from '@mui/material'
-import { NavigationProps } from './app'
+import { NavigationProps } from './appRouter'
 
 export const StartPage = (props: NavigationProps): JSX.Element => {
     const placeholder = 'z.B. xD3qf5'
@@ -22,7 +22,7 @@ export const StartPage = (props: NavigationProps): JSX.Element => {
     }
 
     return (
-        <div style={{ position: 'absolute', top:0, left:0, bottom: 0, right:0, background: 'url(logo.png) no-repeat', backgroundPosition: 'center', backgroundSize: 'contain' }}>
+        <div style={{ position: 'absolute', top:100, left:0, bottom: 0, right:0, background: 'url(logo.png) no-repeat', backgroundPosition: 'center', backgroundSize: 'contain' }}>
             <Button style={{float: 'right'}} variant="text" onClick={() => props.navigate('/manage')}>
                     Umfrage erstellen
             </Button>

@@ -9,8 +9,24 @@
         "esnext"
       ],
       "strict": true,
-      "sourceMap": true,
+      "sourceMap": false, // TODO: Sourcemaps are HUGE.. Only build in dev mode.
       "target": "esnext",
+      // Avoid relative urls.
+      "baseUrl": "./src",
+      "paths": {
+          "@components/*": [
+              "./components/*"
+          ],
+          "@model/*": [
+              "./model/*"
+          ],
+          "@services/*": [
+              "./services/*"
+          ],
+          "@stores/*": [
+              "./stores/*"
+          ]
+      },
       // Additional:
       // Allow mobx-react decoraters.
       "experimentalDecorators": true,

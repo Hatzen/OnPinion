@@ -1,7 +1,7 @@
 
 import { ResponsiveRadar } from '@nivo/radar'
 import * as React from 'react'
-import { SurveyEntry } from '../../../model/surveyEntry'
+import { SurveyEntry } from '@model/surveyEntry'
 
 export class RadarHolder {
     private readonly indexBy = 'choice'

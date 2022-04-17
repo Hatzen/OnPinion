@@ -1,26 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './components/app'
-import { createTheme , ThemeProvider } from '@mui/material'
-import { BrowserRouter } from 'react-router-dom'
-
-const theme = createTheme ({
-    palette: {
-        primary: {
-            main: '#004A7F', // Blue
-        },
-        secondary: {
-            main: '#E3E6E8', // Gray
-        }
-    }
-})
 
 ReactDOM.render(
-    <ThemeProvider theme={theme}>
-        <BrowserRouter>
-            <App/>
-        </BrowserRouter>
-    </ThemeProvider>,
+    <App/>,
     document.getElementById('app-root'),
 )
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, TextField } from '@mui/material'
-import { NavigationProps } from './app'
+import { NavigationProps } from './appRouter'
 
 export const StartPage = (props: NavigationProps): JSX.Element => {
     const placeholder = 'z.B. xD3qf5'
@@ -22,12 +22,8 @@ export const StartPage = (props: NavigationProps): JSX.Element => {
     }
 
     return (
-        <div style={{ position: 'absolute', top:0, left:0, bottom: 0, right:0, background: 'url(logo.png) no-repeat', backgroundPosition: 'center', backgroundSize: 'contain' }}>
-            <Button style={{float: 'right'}} variant="text" onClick={() => props.navigate('/manage')}>
-                    Umfrage erstellen
-            </Button>
-            <div style={{textAlign: 'center', top:' calc(50% - 100px)', bottom: '50%', position: 'relative'}}>
-                <h1 className='color-primary'>OnPinion</h1>
+        <div style={{ position: 'absolute', top:100, left:0, bottom: 0, right:0, background: 'url(logo.png) no-repeat', backgroundPosition: 'center', backgroundSize: 'contain' }}>
+            <div style={{textAlign: 'center', top:' calc(50% - 50px)', bottom: '50%', position: 'relative'}}>
                 <p>Bitte geben sie den Code für die Umfrage ein:</p>
                 <TextField label='Umfrage Code' placeholder={placeholder} onChange={(event) => value = event.target.value}
                     error={error} helperText={helperText}></TextField>

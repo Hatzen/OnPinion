@@ -1,7 +1,7 @@
 
 import { BarDatum, ResponsiveBar } from '@nivo/bar'
 import * as React from 'react'
-import { SurveyEntry } from '../../../model/surveyEntry'
+import { SurveyEntry } from 'model/surveyEntry'
 
 export class BarHolder {
 

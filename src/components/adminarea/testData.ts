@@ -1,6 +1,6 @@
-import { Survey } from './../../model/survey'
-import { GraphType } from '../../model/graphType'
-import { SurveyChoices } from '../../model/surveyChoices'
+import { Survey } from 'model/survey'
+import { GraphType } from 'model/graphType'
+import { SurveyChoices } from 'model/surveyChoices'
 
 export const testData: Survey = {
     id: 'testId',

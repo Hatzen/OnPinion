@@ -1,7 +1,7 @@
-import { SurveyAnswer } from './../model/surveyAnswer'
-import { SurveyEntry } from './../model/surveyEntry'
-import { Survey } from './../model/survey'
-import { FirebaseService } from './../services/firebase.service'
+import { SurveyAnswer } from 'model/surveyAnswer'
+import { SurveyEntry } from 'model/surveyEntry'
+import { Survey } from 'model/survey'
+import { FirebaseService } from 'services/firebase/firebase.service'
 import { makeAutoObservable } from 'mobx'
 
 export class UiStore {
@@ -10,16 +10,23 @@ export class UiStore {
     // Observable.
     currentSurvey: Survey = new Survey()
     keepSync = false
+    loggedInWithEmail = false
     userId?: string
     
     constructor() {
-        this.firebaseService = new FirebaseService()
-        this.firebaseService.initFirebase()
-        this.firebaseService.loginAndGetUserId(userId => this.userId = userId)
         makeAutoObservable(this)
+        this.firebaseService = new FirebaseService()
+        this.firebaseService.initFirebase(this.setLogin.bind(this))
+        // this.firebaseService.loginAndGetUserId()
     }
 
     // Actions.
+
+    setLogin(userId: string, known: boolean): void {
+        this.userId = userId
+        this.loggedInWithEmail = known
+        // debugger
+    }
 
     loadSurvey(id: string): void {
         this.firebaseService.getSurveyWithId(id)
@@ -36,14 +43,7 @@ export class UiStore {
     }
     
     addAnswer(surveyEntry: SurveyEntry, surveyAnswer: SurveyAnswer): void {
-        // debugger
-        let surveyEntryId
-        if (this.currentSurvey.surveyEntries.length != null) {
-            surveyEntryId = this.currentSurvey.surveyEntries.indexOf(surveyEntry)!.toString()
-        } else {
-            // surveyEntryId = Object.values(this.currentSurvey.surveyEntries).find(entry => entry === surveyEntry)!.toString()
-            surveyEntryId = Object.values(this.currentSurvey.surveyEntries).indexOf(surveyEntry)!.toString()
-        }
+        const surveyEntryId = this.currentSurvey.surveyEntries.indexOf(surveyEntry)!.toString()
         this.firebaseService.addSurveyAnswer(this.currentSurvey.id!, surveyEntryId, surveyAnswer)
     }
 }

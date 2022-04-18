@@ -1,7 +1,7 @@
 
-import { Card, CardActionArea, CardContent, Grid, Typography } from '@mui/material'
+import { Card, CardActionArea, CardContent, Typography } from '@mui/material'
 import * as React from 'react'
-import { SurveyEntry } from '../../../model/surveyEntry'
+import { SurveyEntry } from 'model/surveyEntry'
 
 export class TextViewHolder {
     private comments: Array<string> = []

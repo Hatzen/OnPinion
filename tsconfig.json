@@ -33,6 +33,14 @@
       // Avoid must have default values for class based observables
       // https://mobx.js.org/installation.html#installation 
       "useDefineForClassFields": true,
+      // https://github.com/plantain-00/type-coverage
+      "plugins": [
+        {
+          "name": "ts-plugin-type-coverage",
+          "strict": true,
+          "ignoreCatch": true,
+        }
+      ]
     },
     "exclude": [
       "node_modules"

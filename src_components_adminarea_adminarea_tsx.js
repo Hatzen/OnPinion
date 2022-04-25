@@ -195,22 +195,6 @@ const SignInScreen = () => {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SignInScreen);
 
 
-/***/ }),
-
-/***/ "./src/stores/storeHelper.ts":
-/*!***********************************!*\
-  !*** ./src/stores/storeHelper.ts ***!
-  \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "injectClause": () => (/* binding */ injectClause)
-/* harmony export */ });
-// Must be the same as listed StoreProps props. Cannot be initalized as it is not
-const injectClause = ['uiStore'];
-
-
 /***/ })
 
 }]);

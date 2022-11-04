@@ -357,13 +357,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "TextViewHolder": () => (/* binding */ TextViewHolder)
 /* harmony export */ });
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Card/Card.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Card/Card.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/CardActionArea/CardActionArea.js");
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/CardContent/CardContent.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/IconButton/IconButton.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Typography/Typography.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Typography/Typography.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
-
 
 
 class TextViewHolder {
@@ -376,15 +374,10 @@ class TextViewHolder {
             .map(answer => answer.choice);
     }
     get cards() {
-        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.comments.map((element, index) => (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_2__["default"], { key: Math.random(), style: { marginBottom: 10 } },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__["default"], null,
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { style: { float: 'right', display: 'block', position: 'relative', top: 0 } },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], { size: "large", edge: "start", color: "inherit", "aria-label": "menu", sx: { mr: 2 } },
-                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__.FontAwesomeIcon, { icon: 'caret-up' })),
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], { gutterBottom: true, variant: "body1", component: "div" }, "12"),
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], { size: "large", edge: "start", color: "inherit", "aria-label": "menu", sx: { mr: 2 } },
-                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__.FontAwesomeIcon, { icon: 'caret-down' }))),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], { gutterBottom: true, variant: "body1", component: "div" }, element)))))));
+        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.comments.map((element, index) => (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_1__["default"], { key: Math.random() },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_2__["default"], null,
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__["default"], null,
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], { gutterBottom: true, variant: "body1", component: "div" }, element))))))));
     }
 }
 
@@ -447,6 +440,22 @@ var SurveyChoices;
     SurveyChoices["MULTISELECT"] = "MULTISELECT";
     SurveyChoices["PRIORITY"] = "PRIORITY";
 })(SurveyChoices || (SurveyChoices = {}));
+
+
+/***/ }),
+
+/***/ "./src/stores/storeHelper.ts":
+/*!***********************************!*\
+  !*** ./src/stores/storeHelper.ts ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "injectClause": () => (/* binding */ injectClause)
+/* harmony export */ });
+// Must be the same as listed StoreProps props. Cannot be initalized as it is not
+const injectClause = ['uiStore'];
 
 
 /***/ })

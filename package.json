@@ -5,10 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "set NODE_ENV=dev && webpack serve --port 3000",
-    "build": "set NODE_ENV=production && npm run ts-coverage && webpack",
+    "build": "set NODE_ENV=production && webpack",
     "lint": "eslint \"**/*.{ts,tsx}\"",
-    "lint:fix": "eslint \"**/*.{ts,tsx}\" --fix",
-    "ts-coverage": "typescript-coverage-report"
+    "lint:fix": "eslint \"**/*.{ts,tsx}\" --fix"
   },
   "author": "",
   "license": "ISC",
@@ -28,9 +27,7 @@
     "mini-css-extract-plugin": "^2.4.5",
     "ts-loader": "^9.2.6",
     "tsconfig-paths-webpack-plugin": "^3.5.2",
-    "type-coverage": "^2.21.1",
     "typescript": "^4.5.4",
-    "typescript-coverage-report": "^0.6.4",
     "webpack": "^5.65.0",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-cli": "^4.9.1",
@@ -53,13 +50,5 @@
     "react-firebaseui": "^6.0.0",
     "react-loader-spinner": "^4.0.0",
     "react-router-dom": "^6.2.2"
-  },
-  "typeCoverage": {
-    "atLeast": 95,
-    "cache": true,
-    "debug": true,
-    "ignoreCatch": true,
-    "project": "tsconfig.json",
-    "historyFile": "typecoverage.json"
   }
 }

@@ -48,10 +48,6 @@ typings/
 # TypeScript cache
 *.tsbuildinfo
 
-# TypeScript typecoverage results
-.type-coverage/
-coverage-ts/
-
 # Optional npm cache directory
 .npm
 

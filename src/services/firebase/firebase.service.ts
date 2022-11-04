@@ -15,6 +15,7 @@ export class FirebaseService {
     private analytics!: Analytics
     private database!: Database
     private readonly CUSTOMER = 'fourenergy'
+    errorCallback!: () => void
     
     initFirebase (callback: (userId: string, admin: boolean) => void): void {
         this.app = initializeApp(firebaseConfig)
@@ -48,6 +49,7 @@ export class FirebaseService {
                 const errorCode = error.code
                 const errorMessage = error.message
                 console.error('Firebase anonymous login failed: ' + errorCode + '- ' + errorMessage)
+                this.handleError(error)
             })
     }
 
@@ -81,8 +83,8 @@ export class FirebaseService {
                     }
                 }
                 ).catch((error) => {
+                    this.handleError(error)
                     reject()
-                    console.error(error)
                 })
         })
     }
@@ -92,6 +94,7 @@ export class FirebaseService {
             get(this.getRefForId(id))
                 .then((snapshot) => {
                     if (snapshot.exists()) {
+                        // TODO: Assert values with https://github.com/typestack/class-transformer and https://github.com/typestack/class-validator
                         const firebaseNodeObject = snapshot.val() as FirebaseSurvey
                         const survey = SurveyMapper.map(firebaseNodeObject, id)
                         resolve(survey)
@@ -101,8 +104,8 @@ export class FirebaseService {
                     }
                 }
                 ).catch((error) => {
+                    this.handleError(error)
                     reject()
-                    console.error(error)
                 }
                 )
         })
@@ -119,6 +122,11 @@ export class FirebaseService {
 
     private getRefForId(id: string): DatabaseReference {
         return child(ref(this.database), this.CUSTOMER + '/surveys/' + id)
+    }
+
+    private handleError(error: Error): void {
+        console.error(error)
+        this.errorCallback()
     }
 
 }
